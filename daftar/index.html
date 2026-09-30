@@ -220,7 +220,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
       <section class="card" id="s5">
         <h2>Unggah dokumen</h2>
-        <p>Format JPG, PNG, atau PDF. Ukuran maksimal 2 MB per berkas.</p>
+        <p>Format JPG, PNG, atau PDF. Foto dari kamera HP boleh langsung diunggah, ukurannya diperkecil otomatis. Berkas PDF maksimal 2 MB.</p>
         <div class="grid">
           <label class="file"><span class="t">Pas foto 3×4 <i style="color:var(--err);font-style:normal">*</i></span><span class="n">Pilih berkas</span><input type="file" name="foto" accept=".jpg,.jpeg,.png" required></label>
           <label class="file"><span class="t">KTP / Kartu Keluarga <i style="color:var(--err);font-style:normal">*</i></span><span class="n">Pilih berkas</span><input type="file" name="ktp" accept=".jpg,.jpeg,.png,.pdf" required></label>
@@ -248,19 +248,23 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 </footer>
 
 <script>
+// Tempel URL Web App Google Apps Script di sini (lihat panduan)
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbxyY4hVXgbQWoIgxkW4_RH4Mh-TsmfMSYkjhdtgol3CNy6DLCa3P0cl9Tqf7Ey9VXTS/exec';
 const prodi=[["S1 Keperawatan"],["D3 Kebidanan"],["S1 Kesehatan Masyarakat"],["D3 Farmasi"],["S1 Gizi"],["Profesi Ners"]];
 ["p1","p2"].forEach((id,i)=>{
   const s=document.getElementById(id);
   s.innerHTML='<option value="">'+(i?'Tidak ada':'Pilih program studi')+'</option>'+prodi.map(p=>'<option>'+p[0]+'</option>').join('');
 });
 
-// Validasi berkas: maks 2 MB
+// Validasi berkas: foto dikompres otomatis, PDF maks 2 MB
 document.querySelectorAll('.file input').forEach(inp=>{
   inp.addEventListener('change',()=>{
     const box=inp.closest('.file'),n=box.querySelector('.n'),f=inp.files[0];
     box.classList.remove('ok','bad');
     if(!f){n.textContent='Pilih berkas';return}
-    if(f.size>2*1024*1024){inp.value='';box.classList.add('bad');n.textContent='Ukuran melebihi 2 MB, pilih berkas lain';return}
+    const isImg=f.type.startsWith('image/')||/\.(jpe?g|png)$/i.test(f.name);
+    if(!isImg&&f.size>2*1024*1024){inp.value='';box.classList.add('bad');n.textContent='PDF melebihi 2 MB, pilih berkas lain';return}
+    if(isImg&&f.size>30*1024*1024){inp.value='';box.classList.add('bad');n.textContent='Foto terlalu besar (maks 30 MB)';return}
     box.classList.add('ok');n.textContent=f.name;
   });
 });
@@ -274,7 +278,11 @@ document.querySelectorAll('.card[id]').forEach(c=>io.observe(c));
 
 // Kirim
 const form=document.getElementById('form'),err=document.getElementById('formErr');
-form.addEventListener('submit',e=>{
+if(/FBAN|FBAV|Instagram|Line\/|MicroMessenger|TikTok/i.test(navigator.userAgent)){
+  err.textContent='Anda membuka halaman ini di dalam aplikasi lain. Agar pendaftaran berhasil, buka lewat Chrome atau Safari (menu titik tiga > Buka di browser).';
+  err.style.display='block';
+}
+form.addEventListener('submit',async e=>{
   e.preventDefault();
   err.style.display='none';
   if(!form.checkValidity()){
@@ -288,21 +296,77 @@ form.addEventListener('submit',e=>{
     if(bad){bad.closest('.card').scrollIntoView({behavior:'smooth'});bad.focus({preventScroll:true})}
     return;
   }
-  const d=new FormData(form);
-  const no='PMB-2027-'+String(Math.floor(Math.random()*90000)+10000);
-  document.getElementById('dNama').textContent=d.get('nama').split(' ')[0];
-  document.getElementById('dNo').textContent=no;
-  const rows=[['Nama',d.get('nama')],['Jalur',d.get('jalur')],['Pilihan 1',d.get('p1')],['Pilihan 2',d.get('p2')||'—'],['Email',d.get('email')]];
-  document.getElementById('dSum').innerHTML=rows.map(r=>'<div><span>'+r[0]+'</span><span></span></div>').join('');
-  document.querySelectorAll('#dSum div').forEach((el,i)=>el.lastChild.textContent=rows[i][1]);
+  const btn=form.querySelector('button[type=submit]');
+  btn.disabled=true;btn.textContent='Mengirim, jangan tutup halaman...';
+  try{
+    const d=new FormData(form);
+    const data={};
+    for(const [k,v] of d.entries()){if(!(v instanceof File))data[k]=v}
+    data.files={};
+    btn.textContent='Memproses berkas...';
+    for(const n of ['foto','ktp','ijazah','rapor']){data.files[n]=await filePayload(form.elements[n].files[0])}
+    btn.textContent='Mengirim data, mohon tunggu (bisa 20-60 detik)...';
+    const ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),150000);
+    let out;
+    try{
+      const res=await fetch(SCRIPT_URL,{method:'POST',body:JSON.stringify(data),signal:ctl.signal});
+      out=await res.json();
+    }catch(e){
+      throw new Error(e.name==='AbortError'?'Waktu tunggu habis, sinyal mungkin lemah':'Koneksi ke server gagal');
+    }finally{clearTimeout(tm)}
+    if(!out.ok)throw new Error(out.error||'Data gagal disimpan');
 
-  /* TODO: hubungkan ke backend / Google Apps Script / Formspree di sini.
-     fetch('URL_ENDPOINT_ANDA',{method:'POST',body:d}) */
-
-  form.style.display='none';
-  document.getElementById('done').style.display='block';
-  window.scrollTo({top:0,behavior:'smooth'});
+    document.getElementById('dNama').textContent=d.get('nama').split(' ')[0];
+    document.getElementById('dNo').textContent=out.nomor;
+    const rows=[['Nama',d.get('nama')],['Jalur',d.get('jalur')],['Pilihan 1',d.get('p1')],['Pilihan 2',d.get('p2')||'-'],['Email',d.get('email')]];
+    document.getElementById('dSum').innerHTML=rows.map(r=>'<div><span>'+r[0]+'</span><span></span></div>').join('');
+    document.querySelectorAll('#dSum div').forEach((el,i)=>el.lastChild.textContent=rows[i][1]);
+    form.style.display='none';
+    document.getElementById('done').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }catch(ex){
+    err.textContent='Pendaftaran belum terkirim: '+ex.message+'. Periksa koneksi lalu coba lagi.';
+    err.style.display='block';
+    err.scrollIntoView({behavior:'smooth',block:'center'});
+  }finally{
+    btn.disabled=false;btn.textContent='Kirim pendaftaran';
+  }
 });
+
+// Baca berkas; foto dikecilkan (maks 1280 px, JPEG) agar ringan dikirim lewat jaringan HP
+async function filePayload(f){
+  const isImg=f.type.startsWith('image/')||/\.(jpe?g|png)$/i.test(f.name);
+  if(!isImg){
+    const data=await new Promise((ok,fail)=>{
+      const r=new FileReader();
+      r.onerror=()=>fail(new Error('Berkas '+f.name+' tidak bisa dibaca'));
+      r.onload=()=>ok(r.result.split(',')[1]);
+      r.readAsDataURL(f);
+    });
+    return {name:f.name,type:'application/pdf',data};
+  }
+  let src,w,h;
+  try{
+    src=await createImageBitmap(f,{imageOrientation:'from-image'});
+    w=src.width;h=src.height;
+  }catch(e){
+    src=await new Promise((ok,fail)=>{
+      const u=URL.createObjectURL(f),img=new Image();
+      img.onload=()=>ok(img);
+      img.onerror=()=>fail(new Error('Foto '+f.name+' tidak bisa dibaca. Coba foto lain atau simpan sebagai JPG.'));
+      img.src=u;
+    });
+    w=src.naturalWidth;h=src.naturalHeight;
+  }
+  const k=Math.min(1,1280/Math.max(w,h));
+  const c=document.createElement('canvas');
+  c.width=Math.max(1,Math.round(w*k));c.height=Math.max(1,Math.round(h*k));
+  c.getContext('2d').drawImage(src,0,0,c.width,c.height);
+  const url=c.toDataURL('image/jpeg',0.78);
+  if(!url||url.length<100)throw new Error('Foto '+f.name+' gagal diproses. Coba foto lain.');
+  return {name:f.name.replace(/\.\w+$/,'')+'.jpg',type:'image/jpeg',data:url.split(',')[1]};
+}
+
 </script>
 </body>
 </html>
