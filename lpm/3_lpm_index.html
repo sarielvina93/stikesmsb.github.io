@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LPPM | STIKES Medika Seramoe Barat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+  :root{
+    --navy-deep:#0A1E33; --navy-mid:#0E2A47; --navy-light:#123457;
+    --gold:#F4E3B2; --gold-dim:#C9AE6E;
+    --sky:#5BAEEA; --sky-deep:#1D8FE1;
+    --cream:#FBF8F1; --ink:#0A1E33; --muted:#5C6B7A; --line:#e8e2d4;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth; scroll-padding-top:80px;}
+  body{font-family:'Inter',sans-serif; background:var(--cream); color:var(--ink); line-height:1.6; overflow-x:hidden;}
+  h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif; font-weight:600;}
+  a{text-decoration:none; color:inherit;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 32px;}
+  .eyebrow{font-size:12px; letter-spacing:3px; text-transform:uppercase; color:var(--gold-dim); font-weight:500;}
+  section{padding:88px 32px;}
+  .section-head{text-align:center; max-width:600px; margin:0 auto 52px;}
+  .section-head h2{font-size:34px; color:var(--navy-deep); margin-top:12px;}
+  .section-head p{font-size:14px; color:var(--muted); margin-top:14px;}
+  .dark .section-head h2, .dark .section-head .eyebrow{color:var(--gold);}
+  .dark .section-head p{color:rgba(255,255,255,0.6);}
+
+  @keyframes slideDown{from{opacity:0; transform:translateY(-20px);} to{opacity:1; transform:translateY(0);}}
+  @keyframes fadeInUp{from{opacity:0; transform:translateY(30px);} to{opacity:1; transform:translateY(0);}}
+  @keyframes float{0%,100%{transform:translateY(0);} 50%{transform:translateY(-15px);}}
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:none;}
+
+  /* HEADER */
+  header{position:sticky; top:0; z-index:50; background:var(--navy-deep); border-bottom:1px solid rgba(244,227,178,0.15); animation:slideDown .5s ease-out; transition:box-shadow .3s;}
+  header.scrolled{box-shadow:0 8px 24px rgba(10,30,51,0.2);}
+  .topbar{background:var(--sky-deep);}
+  .topbar .wrap{display:flex; flex-wrap:wrap; font-size:12px; font-weight:600; color:#fff;}
+  .topbar a:first-child{padding-left:0;}
+  .topbar a:hover{color:var(--gold);}
+  .topbar a{display:flex; align-items:center; gap:8px; padding:10px 16px; border-right:1px solid rgba(255,255,255,0.25); transition:color .3s;}
+  .topbar a:last-child{border-right:none;}
+  .topbar a:hover{color:var(--gold);}
+  nav{display:flex; align-items:center; justify-content:space-between; padding:18px 32px; max-width:1120px; margin:0 auto; position:relative;}
+  .logo{display:flex; flex-direction:column; line-height:1; font-family:'Cormorant Garamond',serif;}
+  .logo-top{font-size:20px; color:var(--gold); letter-spacing:1px; font-weight:600;}
+  .logo-bottom{font-size:15px; color:var(--sky); font-style:italic; font-weight:600; white-space:nowrap;}
+  .nav-links{display:flex; gap:32px; font-size:13px; color:rgba(255,255,255,0.75);}
+  .nav-links a{position:relative; transition:color .3s;}
+  .nav-links a::after{content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:var(--gold); transition:width .3s;}
+  .nav-links a:hover{color:var(--gold);}
+  .nav-links a:hover::after{width:100%;}
+  .nav-toggle{display:none; width:40px; height:40px; border-radius:2px; border:1px solid rgba(244,227,178,0.4); background:transparent; color:var(--gold); font-size:16px; cursor:pointer;}
+
+  /* HERO */
+  .hero{background:linear-gradient(160deg,rgba(10,30,51,0.82) 0%,rgba(18,52,87,0.78) 60%,rgba(29,143,225,0.45) 100%), url('https://assets.siakadcloud.com/uploads/stikesmsb/bgaplikasi/1839.jpg') center/cover no-repeat; padding:100px 32px 84px; text-align:center; position:relative; overflow:hidden;}
+  .hero::before{content:""; position:absolute; top:-20%; right:-10%; width:480px; height:480px; border:1px solid rgba(127,182,232,0.18); border-radius:50%; animation:float 6s ease-in-out infinite;}
+  .hero-inner{position:relative; z-index:2; max-width:780px; margin:0 auto;}
+  .rule{width:48px; height:1px; background:var(--gold); margin:0 auto 22px;}
+  .hero h1{font-size:58px; color:#fff; line-height:1.15; margin-bottom:18px; text-shadow:0 2px 18px rgba(10,30,51,0.7); animation:fadeInUp .8s ease-out .2s both;}
+  .hero h1 em{display:block; color:#BFE3FB; font-style:italic; font-size:clamp(22px,5vw,36px); margin-top:6px;}
+  .hero p{font-size:15px; color:rgba(255,255,255,0.88); max-width:540px; margin:0 auto 32px; animation:fadeInUp .8s ease-out .35s both;}
+  .btn-row{display:flex; gap:14px; justify-content:center; flex-wrap:wrap; animation:fadeInUp .8s ease-out .5s both;}
+  .btn-primary,.btn-secondary{display:inline-block; font-size:13px; padding:14px 28px; border-radius:2px; transition:all .3s; cursor:pointer;}
+  .btn-primary{background:var(--gold); color:var(--navy-deep); font-weight:600;}
+  .btn-primary:hover{transform:translateY(-4px); box-shadow:0 10px 24px rgba(244,227,178,0.3);}
+  .btn-secondary{color:var(--gold); border:1px solid rgba(244,227,178,0.4);}
+  .btn-secondary:hover{background:rgba(244,227,178,0.1); border-color:var(--gold); transform:translateY(-4px);}
+
+  /* STATS */
+  .stats{background:var(--navy-deep); border-top:1px solid rgba(244,227,178,0.12); display:grid; grid-template-columns:repeat(4,1fr);}
+  .stat{padding:26px 10px; text-align:center; border-right:1px solid rgba(244,227,178,0.12);}
+  .stat:last-child{border-right:none;}
+  .stat .num{font-family:'Cormorant Garamond',serif; font-size:32px; color:var(--gold);}
+  .stat .label{font-size:11px; color:rgba(255,255,255,0.55); margin-top:4px; letter-spacing:.5px;}
+
+  /* SIKLUS PPEPP */
+  .siklus{background:#fff;}
+  .ppepp{display:grid; grid-template-columns:repeat(5,1fr); gap:16px; counter-reset:p;}
+  .step{background:var(--cream); border:1px solid var(--line); border-radius:4px; padding:26px 18px; text-align:center; position:relative; transition:all .4s;}
+  .step:hover{transform:translateY(-8px); border-color:var(--sky-deep); box-shadow:0 14px 34px rgba(29,143,225,0.15);}
+  .step .ic{width:46px; height:46px; margin:0 auto 14px; border-radius:50%; background:var(--navy-deep); color:var(--gold); display:flex; align-items:center; justify-content:center; font-size:17px;}
+  .step h3{font-size:20px; color:var(--navy-deep); margin-bottom:6px;}
+  .step p{font-size:12.5px; color:var(--muted);}
+  .step .no{position:absolute; top:10px; left:14px; font-size:11px; color:var(--gold-dim); font-weight:600;}
+  .loop-note{text-align:center; font-size:13px; color:var(--muted); margin-top:26px;}
+  .loop-note i{color:var(--sky-deep); margin-right:6px;}
+
+  /* TENTANG */
+  .about{background:var(--cream);}
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
+  .vm-card{background:var(--navy-deep); border:1px solid rgba(244,227,178,0.2); border-radius:4px; padding:38px 34px; color:#fff;}
+  .vm-card h3{font-size:24px; color:var(--gold); margin-bottom:10px;}
+  .vm-card .visi{font-family:'Cormorant Garamond',serif; font-style:italic; font-size:19px; line-height:1.5; color:rgba(255,255,255,0.92); margin-bottom:22px;}
+  .vm-card ol{padding-left:18px; font-size:13px; color:rgba(255,255,255,0.72);}
+  .vm-card li{margin-bottom:8px;}
+  .about-text h3{font-size:28px; color:var(--navy-deep); margin:10px 0 16px;}
+  .about-text p{font-size:14px; color:var(--muted); margin-bottom:14px;}
+  .about-list{list-style:none; margin-top:18px;}
+  .about-list li{font-size:13px; padding:10px 0; border-top:1px solid var(--line); display:flex; gap:10px; transition:all .3s;}
+  .about-list li:hover{padding-left:10px; color:var(--sky-deep);}
+  .about-list li::before{content:"—"; color:var(--gold-dim);}
+
+  /* STRUKTUR */
+  .struktur{background:#fff;}
+  .org{display:flex; flex-direction:column; align-items:center; gap:0;}
+  .node{background:var(--navy-deep); color:var(--gold); border:1px solid rgba(244,227,178,0.3); border-radius:4px; padding:12px 22px; font-size:13px; font-weight:600; text-align:center; min-width:210px;}
+  .node.alt{background:var(--cream); color:var(--navy-deep); border-color:var(--line);}
+  .vline{width:1px; height:22px; background:var(--gold-dim);}
+  .row{display:flex; gap:20px; justify-content:center; flex-wrap:wrap; position:relative; padding-top:22px;}
+  .row::before{content:""; position:absolute; top:0; left:25%; right:25%; height:1px; background:var(--gold-dim);}
+  .row .node{position:relative;}
+  .row .node::before{content:""; position:absolute; top:-22px; left:50%; width:1px; height:22px; background:var(--gold-dim);}
+  .tugas-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:18px; margin-top:52px;}
+  .tugas{border:1px solid var(--line); border-radius:4px; padding:24px 22px; background:var(--cream); transition:all .3s;}
+  .tugas:hover{border-color:var(--sky-deep); box-shadow:0 10px 26px rgba(29,143,225,0.1);}
+  .tugas h3{font-size:20px; color:var(--navy-deep); margin-bottom:10px;}
+  .tugas ul{list-style:none;}
+  .tugas li{font-size:12.5px; color:var(--muted); padding:5px 0 5px 16px; position:relative;}
+  .tugas li::before{content:""; position:absolute; left:0; top:13px; width:6px; height:6px; border-radius:50%; background:var(--sky-deep);}
+
+  /* STANDAR */
+  .standar{background:var(--navy-deep); color:#fff;}
+  .doc-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-bottom:56px;}
+  .doc{background:rgba(255,255,255,0.04); border:1px solid rgba(244,227,178,0.2); border-radius:4px; padding:28px 24px; transition:all .4s; display:flex; flex-direction:column;}
+  .doc:hover{background:rgba(255,255,255,0.08); border-color:rgba(244,227,178,0.45); transform:translateY(-8px);}
+  .doc .ic{font-size:26px; color:var(--gold); margin-bottom:14px;}
+  .doc h3{font-size:22px; color:var(--gold); margin-bottom:6px;}
+  .doc p{font-size:12.5px; color:rgba(255,255,255,0.65); flex:1;}
+  .doc .meta{font-size:11px; color:rgba(255,255,255,0.45); margin:14px 0; letter-spacing:.4px;}
+  .doc .dl{display:flex; gap:10px;}
+  .doc .dl a{flex:1; text-align:center; font-size:12px; font-weight:600; padding:10px 8px; border-radius:2px; transition:all .3s;}
+  .doc .dl a.b1{background:var(--gold); color:var(--navy-deep);}
+  .doc .dl a.b1:hover{box-shadow:0 8px 20px rgba(244,227,178,0.3);}
+  .doc .dl a.b2{border:1px solid rgba(244,227,178,0.4); color:var(--gold);}
+  .doc .dl a.b2:hover{background:rgba(244,227,178,0.1);}
+  .std-title{text-align:center; margin-bottom:28px;}
+  .std-title h3{font-size:28px; color:var(--gold);}
+  .std-title p{font-size:13px; color:rgba(255,255,255,0.55); margin-top:6px;}
+  .std-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:16px;}
+  .std-col{border:1px solid rgba(244,227,178,0.18); border-radius:4px; padding:22px 18px;}
+  .std-col h4{font-size:12px; letter-spacing:1.2px; text-transform:uppercase; color:var(--gold-dim); margin-bottom:12px; display:flex; justify-content:space-between;}
+  .std-col h4 span{color:rgba(255,255,255,0.4);}
+  .std-col ol{list-style:none; counter-reset:s;}
+  .std-col li{font-size:12.5px; color:rgba(255,255,255,0.78); padding:6px 0; border-top:1px solid rgba(255,255,255,0.07); transition:all .3s;}
+  .std-col li:hover{color:var(--gold); padding-left:6px;}
+
+  /* BERITA */
+  .berita{background:#fff;}
+  .empty{max-width:520px; margin:0 auto; text-align:center; border:1px dashed var(--gold-dim); border-radius:4px; padding:44px 28px; background:var(--cream);}
+  .empty i{font-size:30px; color:var(--gold-dim); margin-bottom:14px;}
+  .empty h3{font-size:22px; color:var(--navy-deep); margin-bottom:6px;}
+  .empty p{font-size:13px; color:var(--muted);}
+
+  /* KONTAK */
+  .kontak{background:var(--cream);}
+  .kontak-grid{display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:start;}
+  .kontak-info h3{font-size:26px; color:var(--navy-deep); margin:10px 0 18px;}
+  .kontak-row{display:flex; gap:14px; margin-bottom:14px; font-size:13px; color:var(--muted); padding:8px; border-radius:4px; transition:all .3s;}
+  .kontak-row:hover{background:rgba(29,143,225,0.05); padding-left:16px;}
+  .k-label{color:var(--navy-deep); font-weight:600; min-width:90px;}
+  .kontak-map{border:1px solid var(--line); border-radius:4px; overflow:hidden;}
+  .kontak-map iframe{border:0; display:block; width:100%; height:280px;}
+  .map-link{display:block; text-align:center; font-size:12px; color:var(--sky-deep); margin-top:10px;}
+  .map-link:hover{text-decoration:underline;}
+
+  /* FOOTER */
+  footer{background:var(--navy-deep); padding:44px 32px 24px; color:rgba(255,255,255,0.55);}
+  .footer-grid{display:grid; grid-template-columns:2fr 1fr 1fr; gap:40px; margin-bottom:30px;}
+  .footer-grid h4{font-size:12px; letter-spacing:1px; text-transform:uppercase; color:var(--gold-dim); margin-bottom:14px;}
+  .footer-grid ul{list-style:none;}
+  .footer-grid li{font-size:13px; margin-bottom:9px; transition:all .3s;}
+  .footer-grid li:hover{margin-left:8px; color:var(--gold);}
+  .footer-brand .logo{margin-bottom:12px;}
+  .footer-brand p{font-size:13px; max-width:300px;}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,0.1); padding-top:18px; display:flex; justify-content:space-between; font-size:12px; flex-wrap:wrap; gap:10px;}
+
+  .back-to-top{position:fixed; bottom:-60px; right:28px; width:46px; height:46px; background:var(--sky-deep); color:#fff; border:none; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; transition:all .4s; z-index:40; box-shadow:0 4px 12px rgba(29,143,225,0.3);}
+  .back-to-top.visible{bottom:28px;}
+  .back-to-top:hover{transform:translateY(-6px);}
+
+  /* RESPONSIVE */
+  @media (max-width:960px){
+    .ppepp{grid-template-columns:repeat(3,1fr);}
+    .std-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (max-width:860px){
+    section{padding:68px 22px;}
+    .about-grid,.kontak-grid,.doc-grid,.tugas-grid{grid-template-columns:1fr;}
+    .stats{grid-template-columns:repeat(2,1fr);}
+    .stat:nth-child(2){border-right:none;}
+    .stat:nth-child(-n+2){border-bottom:1px solid rgba(244,227,178,0.12);}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+    .hero h1{font-size:44px;}
+    nav{padding:14px 20px;}
+    .nav-toggle{display:block;}
+    .nav-links{display:none; position:absolute; top:100%; left:0; right:0; flex-direction:column; gap:0; padding:6px 24px 14px; background:var(--navy-deep); border-top:1px solid rgba(244,227,178,0.15); box-shadow:0 12px 24px rgba(10,30,51,0.3); font-size:14px;}
+    .nav-links.open{display:flex;}
+    .nav-links a{padding:13px 0; border-bottom:1px solid rgba(255,255,255,0.08);}
+    .nav-links a:last-child{border-bottom:none;}
+    .nav-links a::after{display:none;}
+  }
+  @media (max-width:640px){
+    .ppepp{grid-template-columns:repeat(2,1fr);}
+    .std-grid,.footer-grid{grid-template-columns:1fr;}
+    .hero{padding:80px 20px 66px;}
+    .hero h1{font-size:38px;}
+    .row{flex-direction:column; align-items:center; padding-top:0;}
+    .row::before,.row .node::before{display:none;}
+    .row .node{margin-top:10px;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none !important; transition:none !important;}
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1; transform:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="topbar">
+    <div class="wrap">
+      <a href="/perpustakaan/"><i class="fas fa-building-columns"></i> Perpustakaan</a>
+      <a href="/katalog"><i class="fas fa-book"></i> Katalog online</a>
+      <a href="/ejournal"><i class="fas fa-newspaper"></i> E-journal</a>
+      <a href="/repository"><i class="fas fa-database"></i> Repository</a>
+      <a href="/lppm" title="Lembaga Penelitian dan Pengabdian kepada Masyarakat"><i class="fas fa-flask"></i> LPPM</a>
+      <a href="/lpm" title="Lembaga Penjamin Mutu"><i class="fas fa-award"></i> LPM</a>
+      <a href="/area-anggota"><i class="fas fa-user-lock"></i> Area anggota</a>
+    </div>
+  </div>
+  <nav>
+    <a href="/" class="logo">
+      <div class="logo-top">LPPM</div>
+      <div class="logo-bottom">STIKES Medika Seramoe Barat</div>
+    </a>
+    <div class="nav-links" id="navLinks">
+      <a href="/">Beranda</a>
+      <a href="#tentang">Tentang Lembaga</a>
+      <a href="#standar">Standar</a>
+      <a href="#berita">Berita</a>
+      <a href="#kontak">Kontak</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false"><i class="fas fa-bars"></i></button>
+  </nav>
+</header>
+
+<!-- ===== BERANDA ===== -->
+<section class="hero" id="beranda">
+  <div class="hero-inner">
+    <div class="rule"></div>
+    <div class="eyebrow">Penelitian dan Pengabdian</div>
+    <h1>Lembaga Penelitian dan Pengabdian kepada Masyarakat <em>STIKES Medika Seramoe Barat</em></h1>
+    <p>Meningkatkan kualitas penelitian dan pengabdian kepada masyarakat di bidang kesehatan yang inovatif dan unggul.</p>
+    <div class="btn-row">
+      <a href="#standar" class="btn-primary">Lihat standar</a>
+      <a href="#tentang" class="btn-secondary">Tentang lembaga</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><div class="num">16</div><div class="label">Standar mutu</div></div>
+  <div class="stat"><div class="num">8</div><div class="label">Standar penelitian</div></div>
+  <div class="stat"><div class="num">8</div><div class="label">Standar pengabdian</div></div>
+  <div class="stat"><div class="num">2</div><div class="label">Bidang Tri Dharma</div></div>
+</div>
+
+<!-- ===== TENTANG LEMBAGA ===== -->
+<section class="about" id="tentang">
+  <div class="wrap about-grid">
+    <div class="vm-card reveal">
+      <div class="eyebrow">Misi STIKES</div>
+      <div class="visi" style="margin-top:12px;">"Menyelenggarakan dan meningkatkan kualitas penelitian dan pengabdian kepada masyarakat di bidang kesehatan yang inovatif dan unggul."</div>
+      <h3>Tujuan</h3>
+      <ol>
+        <li>Menghasilkan penelitian di bidang kesehatan yang dapat dipublikasikan di tingkat nasional.</li>
+        <li>Melaksanakan pengabdian masyarakat sesuai dengan hasil penelitian yang tepat guna dalam pelayanan masyarakat.</li>
+      </ol>
+    </div>
+    <div class="about-text reveal">
+      <div class="eyebrow">Tentang lembaga</div>
+      <h3>Dari penelitian untuk pelayanan masyarakat</h3>
+      <p>Lembaga Penelitian dan Pengabdian kepada Masyarakat (LPPM) mengelola dua dari tiga pilar Tri Dharma Perguruan Tinggi di STIKES Medika Seramoe Barat: penelitian dan pengabdian kepada masyarakat di bidang kesehatan.</p>
+      <p>Pelaksanaan keduanya mengacu pada standar mutu dalam Sistem Penjaminan Mutu Internal (SPMI) STIKES MSB, yang disusun bersama Lembaga Penjamin Mutu.</p>
+      <ul class="about-list">
+        <li>Penelitian kesehatan oleh dosen dan mahasiswa</li>
+        <li>Pengabdian kepada masyarakat berbasis hasil penelitian</li>
+        <li>Pengelolaan sarana, pendanaan, dan penilaian kegiatan</li>
+        <li>Mengacu pada standar SPMI STIKES MSB</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== STANDAR ===== -->
+<section class="standar dark" id="standar">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Standar</div>
+      <h2>Standar penelitian dan pengabdian</h2>
+      <p>Enam belas standar mutu yang menjadi acuan LPPM. Dokumen lengkapnya sama dengan dokumen SPMI di halaman Lembaga Penjamin Mutu.</p>
+    </div>
+    <div class="doc-grid">
+      <div class="doc reveal">
+        <div class="ic"><i class="fas fa-list-check"></i></div>
+        <h3>Standar SPMI</h3>
+        <p>Standar Penelitian ada pada hlm. 44–72 dan Standar Pengabdian kepada Masyarakat pada hlm. 73–102.</p>
+        <div class="meta">2021 · 146 halaman · PDF</div>
+        <div class="dl"><a class="b1" href="../lpm/dokumen/Standar-SPMI-2021.pdf" target="_blank" rel="noopener"><i class="fas fa-eye"></i> Buka</a><a class="b2" href="../lpm/dokumen/Standar-SPMI-2021.pdf" download><i class="fas fa-download"></i> Unduh</a></div>
+      </div>
+      <div class="doc reveal">
+        <div class="ic"><i class="fas fa-book-open"></i></div>
+        <h3>Manual SPMI</h3>
+        <p>Panduan langkah pelaksanaan standar. Penelitian pada hlm. 87–154, pengabdian pada hlm. 155–238.</p>
+        <div class="meta">2022 · 321 halaman · PDF</div>
+        <div class="dl"><a class="b1" href="../lpm/dokumen/Manual-SPMI-2022.pdf" target="_blank" rel="noopener"><i class="fas fa-eye"></i> Buka</a><a class="b2" href="../lpm/dokumen/Manual-SPMI-2022.pdf" download><i class="fas fa-download"></i> Unduh</a></div>
+      </div>
+      <div class="doc reveal">
+        <div class="ic"><i class="fas fa-scale-balanced"></i></div>
+        <h3>Kebijakan SPMI</h3>
+        <p>Garis besar pelaksanaan SPMI di STIKES Medika Seramoe Barat.</p>
+        <div class="meta">2021 · 29 halaman · PDF</div>
+        <div class="dl"><a class="b1" href="../lpm/dokumen/Kebijakan-SPMI-2021.pdf" target="_blank" rel="noopener"><i class="fas fa-eye"></i> Buka</a><a class="b2" href="../lpm/dokumen/Kebijakan-SPMI-2021.pdf" download><i class="fas fa-download"></i> Unduh</a></div>
+      </div>
+    </div>
+    <div class="std-grid" style="grid-template-columns:repeat(2,1fr);">
+      <div class="std-col reveal">
+        <h4>Standar penelitian <span>8</span></h4>
+        <ol>
+          <li>Standar Hasil Penelitian</li>
+          <li>Standar Isi Penelitian</li>
+          <li>Standar Proses Penelitian</li>
+          <li>Standar Penilaian Penelitian</li>
+          <li>Standar Peneliti</li>
+          <li>Standar Sarana dan Prasarana Penelitian</li>
+          <li>Standar Pengelolaan Penelitian</li>
+          <li>Standar Pendanaan dan Pembiayaan Penelitian</li>
+        </ol>
+      </div>
+      <div class="std-col reveal">
+        <h4>Standar pengabdian kepada masyarakat <span>8</span></h4>
+        <ol>
+          <li>Standar Hasil Pengabdian kepada Masyarakat</li>
+          <li>Standar Isi Pengabdian kepada Masyarakat</li>
+          <li>Standar Proses Pengabdian kepada Masyarakat</li>
+          <li>Standar Penilaian Pengabdian kepada Masyarakat</li>
+          <li>Standar Pelaksana Pengabdian kepada Masyarakat</li>
+          <li>Standar Sarana dan Prasarana Pengabdian kepada Masyarakat</li>
+          <li>Standar Pengelolaan Pengabdian kepada Masyarakat</li>
+          <li>Standar Pendanaan dan Pembiayaan Pengabdian kepada Masyarakat</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== BERITA ===== -->
+<section class="berita" id="berita">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Berita</div>
+      <h2>Kabar penelitian dan pengabdian</h2>
+      <p>Informasi kegiatan penelitian, pengabdian kepada masyarakat, dan pengumuman LPPM.</p>
+    </div>
+    <div class="empty reveal">
+      <i class="fas fa-newspaper"></i>
+      <h3>Belum ada berita</h3>
+      <p>Berita dan agenda LPPM akan tampil di sini setelah dipublikasikan.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== KONTAK ===== -->
+<section class="kontak" id="kontak">
+  <div class="wrap kontak-grid">
+    <div class="kontak-info reveal">
+      <div class="eyebrow">Kontak</div>
+      <h3>Hubungi LPPM</h3>
+      <div class="kontak-row"><div class="k-label">Alamat</div><div>Jl. Industri, Seuneubok, Kec. Johan Pahlawan, Kabupaten Aceh Barat, Aceh 23616</div></div>
+      <div class="kontak-row"><div class="k-label">Telepon</div><div>0651-7551306</div></div>
+      <div class="kontak-row"><div class="k-label">Email</div><div>info@stikesmsb.net</div></div>
+      <div class="kontak-row"><div class="k-label">Jam layanan</div><div>Senin–Jumat, 08.00–16.00 WIB</div></div>
+    </div>
+    <div class="reveal">
+      <div class="kontak-map">
+        <iframe title="Peta lokasi STIKES Medika Seramoe Barat" src="https://www.google.com/maps?q=STIKES+Medika+Seramoe+Barat,+Jl.+Industri,+Seuneubok,+Kec.+Johan+Pahlawan,+Kabupaten+Aceh+Barat,+Aceh+23616&output=embed" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <a class="map-link" href="https://www.google.com/maps/place/STIKES+Medika+Seramoe+Barat/@4.1618961,96.122136,879m/data=!3m1!1e3!4m6!3m5!1s0x303ec3c16fe3fbb5:0x671482fd47a165b2!8m2!3d4.1616378!4d96.1217485!16s%2Fg%2F1pzqcl9bd" target="_blank" rel="noopener">Buka di Google Maps →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <div class="logo"><div class="logo-top">LPPM</div><div class="logo-bottom">STIKES Medika Seramoe Barat</div></div>
+      <p>Lembaga Penelitian dan Pengabdian kepada Masyarakat STIKES Medika Seramoe Barat.</p>
+    </div>
+    <div>
+      <h4>Halaman</h4>
+      <ul>
+        <li><a href="#tentang">Tentang Lembaga</a></li>
+        <li><a href="#standar">Standar</a></li>
+        <li><a href="#berita">Berita</a></li>
+        <li><a href="#kontak">Kontak</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Situs kampus</h4>
+      <ul>
+        <li><a href="../">Beranda STIKES MSB</a></li>
+        <li><a href="../lpm/">Lembaga Penjamin Mutu</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-bottom">
+    <span id="footerYear">© 2026 STIKES Medika Seramoe Barat. Semua hak dilindungi.</span>
+    <span>Kabupaten Aceh Barat, Aceh</span>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" type="button" aria-label="Kembali ke atas"><i class="fas fa-chevron-up"></i></button>
+
+<script>
+  // Header + back to top
+  const header = document.querySelector('header');
+  const btt = document.getElementById('backToTop');
+  function onScroll(){
+    const y = window.scrollY;
+    header.classList.toggle('scrolled', y > 100);
+    btt.classList.toggle('visible', y > 300);
+  }
+  window.addEventListener('scroll', onScroll, { passive:true });
+  onScroll();
+  btt.addEventListener('click', () => window.scrollTo({ top:0, behavior:'smooth' }));
+
+  // Menu mobile
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  const setMenu = (open) => {
+    navLinks.classList.toggle('open', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+    navToggle.querySelector('i').className = open ? 'fas fa-xmark' : 'fas fa-bars';
+  };
+  navToggle.addEventListener('click', () => setMenu(!navLinks.classList.contains('open')));
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+  // Muncul saat di-scroll
+  const items = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { threshold:0.12 });
+    items.forEach(el => io.observe(el));
+  } else {
+    items.forEach(el => el.classList.add('in'));
+  }
+
+  // Tahun footer
+  document.getElementById('footerYear').textContent =
+    '© ' + new Date().getFullYear() + ' STIKES Medika Seramoe Barat. Semua hak dilindungi.';
+</script>
+
+</body>
+</html>
