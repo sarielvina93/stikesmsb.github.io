@@ -419,7 +419,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 <script>
 // Tempel URL Web App Google Apps Script di sini (lihat panduan)
 const SCRIPT_URL='https://script.google.com/macros/s/AKfycbxyY4hVXgbQWoIgxkW4_RH4Mh-TsmfMSYkjhdtgol3CNy6DLCa3P0cl9Tqf7Ey9VXTS/exec';
-const prodi=[["S1 Keperawatan"],["D3 Kebidanan"],["S1 Kesehatan Masyarakat"],["D3 Farmasi"],["S1 Gizi"],["Profesi Ners"]];
+const prodi=[["S1 Keperawatan"],["D3 Kebidanan"],["Profesi Ners"]];
 ["p1","p2"].forEach((id,i)=>{
   const s=document.getElementById(id);
   s.innerHTML='<option value="">'+(i?'Tidak ada':'Pilih program studi')+'</option>'+prodi.map(p=>'<option>'+p[0]+'</option>').join('');
