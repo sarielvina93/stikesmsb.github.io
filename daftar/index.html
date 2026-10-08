@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pendaftaran Mahasiswa Baru | STIKES Medika Seramoe Barat</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--navy-deep:#0A1E33;--navy-mid:#0E2A47;--navy-light:#123457;--gold:#F4E3B2;--gold-dim:#C9AE6E;--sky:#5BAEEA;--sky-deep:#1D8FE1;--cream:#FBF8F1;--ink:#0A1E33;--muted:#5C6B7A;--line:#e8e2d4;--err:#b3261e}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink);line-height:1.6}
+h1,h2,h3,.serif{font-family:'Cormorant Garamond',serif;font-weight:600}
+a{text-decoration:none;color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 32px}
+.eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dim);font-weight:500}
+
+header{position:sticky;top:0;z-index:50;background:var(--navy-deep);border-bottom:1px solid rgba(244,227,178,.15)}
+nav{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;max-width:1120px;margin:0 auto}
+.logo{font-family:'Cormorant Garamond',serif;display:flex;flex-direction:column;line-height:1}
+.logo-top{font-size:20px;color:var(--gold);letter-spacing:1px;font-weight:600}
+.logo-bottom{font-size:16px;color:var(--sky);font-style:italic;font-weight:600}
+.nav-links{display:flex;gap:36px;font-size:13px;color:rgba(255,255,255,.75)}
+.nav-links a{transition:color .3s}
+.nav-links a:hover{color:var(--gold)}
+.nav-toggle{display:none;width:40px;height:40px;border-radius:2px;border:1px solid rgba(244,227,178,.4);background:transparent;color:var(--gold);font-size:16px;cursor:pointer}
+header{position:sticky}
+.nav-cta{background:var(--gold);color:var(--navy-deep);font-weight:600;font-size:13px;padding:10px 22px;border-radius:2px}
+
+.hero{background:linear-gradient(160deg,rgba(10,30,51,.92),rgba(14,42,71,.88) 55%,rgba(18,52,87,.85)),url('https://assets.siakadcloud.com/uploads/stikesmsb/bgaplikasi/1839.jpg') center/cover no-repeat;padding:80px 32px 70px;text-align:center}
+.rule{width:48px;height:1px;background:var(--gold);margin:0 auto 22px}
+.hero h1{font-size:52px;color:#fff;line-height:1.15;margin:12px 0 16px}
+.hero h1 em{color:var(--sky);font-style:italic}
+.hero p{font-size:15px;color:rgba(255,255,255,.65);max-width:480px;margin:0 auto}
+
+.layout{display:grid;grid-template-columns:280px 1fr;gap:40px;padding:64px 32px 96px;align-items:start}
+.side{position:sticky;top:110px;display:flex;flex-direction:column;gap:18px}
+.steps{background:#fff;border:1px solid var(--line);border-radius:4px;padding:8px 22px;list-style:none}
+.steps a{display:flex;gap:12px;align-items:center;padding:13px 0;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);transition:all .3s}
+.steps li:last-child a{border-bottom:none}
+.steps a b{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--gold-dim);min-width:22px}
+.steps a:hover,.steps a.on{color:var(--sky-deep);padding-left:6px}
+.info{background:var(--navy-deep);border:1px solid rgba(244,227,178,.2);border-radius:4px;padding:24px 22px;color:rgba(255,255,255,.7);font-size:13px}
+.info .serif{color:var(--gold);font-size:20px;margin-bottom:8px;display:block}
+.info div{padding:8px 0;border-top:1px solid rgba(244,227,178,.12)}
+.info strong{color:#fff;font-weight:600}
+
+.card{background:#fff;border:1px solid var(--line);border-radius:4px;padding:34px;margin-bottom:20px;scroll-margin-top:110px}
+.card h2{font-size:28px;color:var(--navy-deep);margin-bottom:4px}
+.card>p{font-size:13px;color:var(--muted);margin-bottom:24px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 20px}
+.full{grid-column:1/-1}
+label{display:block;font-size:12px;font-weight:600;color:var(--navy-deep);margin-bottom:6px}
+label i{color:var(--err);font-style:normal}
+input,select,textarea{width:100%;font:inherit;font-size:14px;color:var(--ink);background:var(--cream);border:1px solid var(--line);border-radius:2px;padding:11px 13px;transition:all .3s}
+textarea{resize:vertical;min-height:88px}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--sky-deep);background:#fff;box-shadow:0 0 0 3px rgba(29,143,225,.15)}
+input:user-invalid,select:user-invalid{border-color:var(--err)}
+.hint{font-size:11px;color:var(--muted);margin-top:5px}
+.radios{display:flex;gap:10px;flex-wrap:wrap}
+.radios label{display:flex;align-items:center;gap:8px;margin:0;padding:11px 16px;border:1px solid var(--line);border-radius:2px;background:var(--cream);font-weight:500;cursor:pointer;transition:all .3s}
+.radios label:hover{border-color:var(--sky-deep)}
+.radios input{width:auto;accent-color:var(--sky-deep)}
+.radios label:has(input:checked){border-color:var(--sky-deep);background:#fff;color:var(--sky-deep)}
+.file{border:1px dashed var(--gold-dim);background:var(--cream);border-radius:4px;padding:16px;cursor:pointer;transition:all .3s;display:block;margin:0}
+.file:hover{border-color:var(--sky-deep);background:#fff}
+.file input{display:none}
+.file .t{font-size:13px;font-weight:600;color:var(--navy-deep);display:block}
+.file .n{font-size:12px;color:var(--muted);display:block;margin-top:2px;word-break:break-all}
+.file.ok{border-style:solid;border-color:var(--sky-deep);background:#fff}
+.file.ok .n{color:var(--sky-deep)}
+.file.bad{border-color:var(--err)}
+.file.bad .n{color:var(--err)}
+.check{display:flex;gap:10px;font-size:13px;color:var(--muted);font-weight:400;cursor:pointer}
+.check input{width:auto;margin-top:4px;accent-color:var(--sky-deep)}
+.actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.btn-primary{background:var(--gold);color:var(--navy-deep);font-weight:600;font-size:13px;padding:15px 32px;border-radius:2px;border:none;cursor:pointer;transition:all .3s;font-family:inherit}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(201,174,110,.4)}
+.btn-line{background:transparent;color:var(--sky-deep);font-weight:600;font-size:13px;padding:14px 28px;border-radius:2px;border:1px solid var(--sky-deep);cursor:pointer;font-family:inherit;transition:all .3s}
+.btn-line:hover{background:rgba(29,143,225,.06)}
+.note{font-size:12px;color:var(--muted)}
+#formErr{display:none;background:#fdecea;border:1px solid #f3b8b3;color:var(--err);font-size:13px;padding:12px 16px;border-radius:2px;margin-bottom:16px}
+
+.done{display:none;background:var(--navy-deep);border:1px solid rgba(244,227,178,.25);border-radius:4px;padding:48px 40px;text-align:center;color:rgba(255,255,255,.7)}
+.done h2{font-size:34px;color:#fff;margin:10px 0 12px}
+.done .no{font-family:'Cormorant Garamond',serif;font-size:38px;color:var(--gold);margin:14px 0 22px;letter-spacing:1px}
+.sum{text-align:left;max-width:420px;margin:0 auto 28px;font-size:13px}
+.sum div{display:flex;justify-content:space-between;gap:16px;padding:10px 0;border-top:1px solid rgba(244,227,178,.15)}
+.sum span:last-child{color:#fff;text-align:right}
+
+footer{background:var(--navy-deep);padding:32px;color:rgba(255,255,255,.55);font-size:12px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+:focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+
+@media (max-width:860px){
+  .layout{grid-template-columns:1fr;padding:40px 20px 72px}
+  .side{position:static}
+  .steps{display:none}
+  .grid{grid-template-columns:1fr}
+  .hero h1{font-size:40px}
+  .nav-toggle{display:block}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;padding:6px 24px 14px;background:var(--navy-deep);border-top:1px solid rgba(244,227,178,.15);box-shadow:0 12px 24px rgba(10,30,51,.3);font-size:14px}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:13px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+  .nav-links a:last-child{border-bottom:none}
+  .card{padding:24px 20px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+/* ===== Lembar cetak: tampilan formulir A4 hitam-putih seperti PDF ===== */
+#sheet{display:none;color:#000;font-family:'Inter',Arial,Helvetica,sans-serif;font-size:9.5pt;line-height:1.35;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+#sheet *{box-sizing:border-box;margin:0;padding:0}
+#sheet .pg{width:210mm;height:296mm;padding:11mm 14mm 16mm;position:relative;background:#fff;break-after:page;overflow:hidden}
+#sheet .pg:last-child{break-after:auto}
+#sheet .kop{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #000;padding-bottom:3mm}
+#sheet .k1{font:600 21pt/1 'Cormorant Garamond',Georgia,serif;letter-spacing:1px}
+#sheet .k2{font:italic 600 13.5pt/1.15 'Cormorant Garamond',Georgia,serif}
+#sheet .k3{font-size:8pt;margin-top:1mm}
+#sheet .kop-r{text-align:right;font-size:8pt;line-height:1.5}
+#sheet .jd{text-align:center;font-size:13pt;font-weight:700;letter-spacing:.5px;margin-top:4mm}
+#sheet .sj{text-align:center;font-size:9pt;margin-top:.5mm}
+#sheet .top{display:grid;grid-template-columns:1fr 32mm;gap:5mm;margin-top:4mm;align-items:start}
+#sheet .nobox{display:flex;justify-content:space-between;align-items:center;border:1px solid #000;padding:2mm 3mm;margin-bottom:3mm;min-height:9mm;font-size:8.5pt}
+#sheet .nobox small{font-size:7.5pt;font-style:italic}
+#sheet .nobox b{font-size:11pt;letter-spacing:1px}
+#sheet .pet{border:1px solid #000;padding:2.5mm 3mm;font-size:8.5pt}
+#sheet .pet ul{margin:1mm 0 0 4mm}
+#sheet .foto{width:30mm;height:40mm;border:1px dashed #000;display:grid;place-items:center;text-align:center;font-size:7.5pt;position:relative;justify-self:end;overflow:hidden}
+#sheet .foto img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
+#sheet .sh{display:flex;align-items:center;gap:2.5mm;margin-top:5mm;border-bottom:1px solid #000;padding-bottom:1mm}
+#sheet .sh b{width:5.5mm;height:5.5mm;background:#000;color:#fff;display:grid;place-items:center;font-size:9pt;font-weight:700}
+#sheet .sh h3{font-family:'Inter',Arial,sans-serif;font-size:10.5pt;font-weight:700;letter-spacing:.3px}
+#sheet .sd{font-size:8pt;font-style:italic;margin:1mm 0 2.5mm}
+#sheet .g2{display:grid;grid-template-columns:1fr 1fr;gap:2.5mm 6mm}
+#sheet .f1{grid-column:1/-1}
+#sheet .fl{font-size:8pt;font-weight:600}
+#sheet .fv{border-bottom:1px solid #000;min-height:6mm;padding:.5mm 1mm;font-weight:500;letter-spacing:.3px;display:flex;align-items:center;flex-wrap:wrap;gap:0 2mm}
+#sheet .fv.tall{min-height:13mm;align-items:flex-start;line-height:1.6}
+#sheet .fv.free{border-bottom:0;padding:1mm 0}
+#sheet .hint{font-size:7pt;font-style:italic;font-weight:400;letter-spacing:0}
+#sheet .cells{display:inline-flex}
+#sheet .cells i{width:5.2mm;height:6mm;border:1px solid #000;margin-right:-1px;font-style:normal;text-align:center;line-height:5mm;font-weight:600}
+#sheet .sl{padding:0 1.5mm;font-weight:600}
+#sheet .op{display:inline-flex;align-items:center;gap:1.5mm;margin-right:5mm;font-size:9pt;font-weight:400}
+#sheet .bx{width:4mm;height:4mm;border:1px solid #000;display:inline-grid;place-items:center;font-style:normal;font-weight:700;font-size:8pt;line-height:1;flex:none}
+#sheet .ops3{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5mm 4mm}
+#sheet .ops3 .op{margin:0}
+#sheet .rh{display:flex;justify-content:space-between;border-bottom:1px solid #000;padding-bottom:1.5mm;font-size:8.5pt}
+#sheet .stmt{font-size:9pt;margin:2mm 0 3mm}
+#sheet .ttd{display:grid;grid-template-columns:1fr 1fr;gap:10mm;text-align:center;font-size:9pt}
+#sheet .ttd .sp{height:24mm}
+#sheet .ttd .nm{border-top:1px solid #000;padding-top:1mm;font-weight:600;min-height:6mm}
+#sheet .ttd small{display:block;font-size:7.5pt;font-weight:400}
+#sheet .ptg{border:1px dashed #000;padding:3mm 4mm;margin-top:7mm;font-size:8.5pt}
+#sheet .ptg h4{font-family:'Inter',Arial,sans-serif;font-size:8.5pt;font-weight:700;margin-bottom:2.5mm}
+#sheet .ptg .row{display:flex;gap:8mm;align-items:flex-end;margin-top:2.5mm}
+#sheet .ptg .ln{flex:1;border-bottom:1px solid #000;min-height:6mm;display:flex;align-items:flex-end;gap:2mm}
+#sheet .ft{position:absolute;left:14mm;right:14mm;bottom:8mm;border-top:1px solid #000;padding-top:1.5mm;display:flex;justify-content:space-between;font-size:7.5pt}
+
+#btnPrint{margin-left:0}
+@media print{
+  @page{size:A4;margin:0}
+  html,body{background:#fff!important}
+  body>*:not(#sheet){display:none!important}
+  #sheet{display:block}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="/" class="logo"><div class="logo-top">STIKES</div><div class="logo-bottom">Medika Seramoe Barat</div></a>
+    <div class="nav-links" id="navLinks">
+      <a href="/">Beranda</a>
+      <a href="/#tentang">Tentang</a>
+      <a href="/#prodi">Program studi</a>
+      <a href="/#galeri">Galeri</a>
+      <a href="/#berita">Berita</a>
+      <a href="/#alumni">Alumni</a>
+      <a href="/#kontak">Kontak</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Buka menu" aria-expanded="false">&#9776;</button>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="rule"></div>
+  <div class="eyebrow">Penerimaan mahasiswa baru 2027</div>
+  <h1>Formulir <em>Pendaftaran</em></h1>
+  <p>Isi data dengan lengkap dan benar. Proses pengisian sekitar 10 menit.</p>
+</section>
+
+<div class="wrap layout">
+  <aside class="side">
+    <ol class="steps" id="steps">
+      <li><a href="#s1" class="on"><b>1</b>Data pribadi</a></li>
+      <li><a href="#s2"><b>2</b>Pilihan program studi</a></li>
+      <li><a href="#s3"><b>3</b>Pendidikan terakhir</a></li>
+      <li><a href="#s4"><b>4</b>Data orang tua/wali</a></li>
+      <li><a href="#s5"><b>5</b>Unggah dokumen</a></li>
+    </ol>
+    <div class="info">
+      <span class="serif">Info pendaftaran</span>
+      <div>Gelombang 1 ditutup <strong>30 September 2026</strong></div>
+      <div>Biaya pendaftaran mulai <strong>Rp 150.000</strong></div>
+      <div>Bantuan: <strong>0651-7551306</strong><br>Senin–Jumat, 08.00–16.00 WIB</div>
+    </div>
+  </aside>
+
+  <main>
+    <div class="done" id="done">
+      <div class="eyebrow">Pendaftaran terkirim</div>
+      <h2>Terima kasih, <span id="dNama"></span></h2>
+      <p>Simpan nomor pendaftaran ini untuk pembayaran dan pengecekan status.</p>
+      <div class="no" id="dNo"></div>
+      <div class="sum" id="dSum"></div>
+      <div class="actions" style="justify-content:center">
+        <a href="/" class="btn-primary">Kembali ke beranda</a>
+        <button type="button" class="btn-line" style="color:var(--gold);border-color:rgba(244,227,178,.4)" onclick="printSheet(window._no)">Cetak formulir (simpan PDF)</button>
+      </div>
+    </div>
+
+    <form id="form" novalidate>
+      <div id="formErr" role="alert"></div>
+
+      <section class="card" id="s1">
+        <h2>Data pribadi</h2>
+        <p>Sesuai dengan KTP atau Kartu Keluarga.</p>
+        <div class="grid">
+          <div class="full"><label for="nama">Nama lengkap <i>*</i></label><input id="nama" name="nama" required autocomplete="name"></div>
+          <div><label for="nik">NIK <i>*</i></label><input id="nik" name="nik" required inputmode="numeric" pattern="[0-9]{16}" maxlength="16"><div class="hint">16 digit angka</div></div>
+          <div><label for="jk">Jenis kelamin <i>*</i></label><select id="jk" name="jk" required><option value="">Pilih</option><option>Laki-laki</option><option>Perempuan</option></select></div>
+          <div><label for="tmp">Tempat lahir <i>*</i></label><input id="tmp" name="tmp" required></div>
+          <div><label for="tgl">Tanggal lahir <i>*</i></label><input id="tgl" name="tgl" type="date" required></div>
+          <div><label for="agama">Agama <i>*</i></label><select id="agama" name="agama" required><option value="">Pilih</option><option>Islam</option><option>Kristen</option><option>Katolik</option><option>Hindu</option><option>Buddha</option><option>Konghucu</option></select></div>
+          <div><label for="hp">Nomor HP / WhatsApp <i>*</i></label><input id="hp" name="hp" type="tel" required inputmode="tel" pattern="(\+62|62|0)8[0-9]{8,12}" placeholder="08xxxxxxxxxx" autocomplete="tel"></div>
+          <div class="full"><label for="email">Email <i>*</i></label><input id="email" name="email" type="email" required autocomplete="email"></div>
+          <div class="full"><label for="alamat">Alamat lengkap <i>*</i></label><textarea id="alamat" name="alamat" required placeholder="Jalan, desa/kelurahan, kecamatan, kabupaten/kota"></textarea></div>
+        </div>
+      </section>
+
+      <section class="card" id="s2">
+        <h2>Pilihan program studi</h2>
+        <p>Pilihan kedua bersifat opsional dan dipakai bila pilihan pertama penuh.</p>
+        <div class="grid">
+          <div class="full"><label>Jalur pendaftaran <i>*</i></label>
+            <div class="radios">
+              <label><input type="radio" name="jalur" value="Reguler" required checked> Reguler</label>
+              <label><input type="radio" name="jalur" value="Pindahan"> Pindahan</label>
+              <label><input type="radio" name="jalur" value="RPL"> Rekognisi Pembelajaran Lampau</label>
+            </div>
+          </div>
+          <div><label for="p1">Pilihan pertama <i>*</i></label>
+            <select id="p1" name="p1" required></select></div>
+          <div><label for="p2">Pilihan kedua</label>
+            <select id="p2" name="p2"></select></div>
+          <div class="full"><div class="hint">Program Profesi Ners hanya untuk lulusan S1 Keperawatan.</div></div>
+        </div>
+      </section>
+
+      <section class="card" id="s3">
+        <h2>Pendidikan terakhir</h2>
+        <p>Data sekolah asal atau perguruan tinggi sebelumnya.</p>
+        <div class="grid">
+          <div class="full"><label for="sekolah">Nama sekolah / perguruan tinggi <i>*</i></label><input id="sekolah" name="sekolah" required></div>
+          <div><label for="jurusan">Jurusan / program studi <i>*</i></label><input id="jurusan" name="jurusan" required></div>
+          <div><label for="lulus">Tahun lulus <i>*</i></label><input id="lulus" name="lulus" required inputmode="numeric" pattern="(19|20)[0-9]{2}" maxlength="4" placeholder="2026"></div>
+          <div class="full"><label for="nilai">Rata-rata nilai rapor / IPK <i>*</i></label><input id="nilai" name="nilai" type="number" step="0.01" min="0" max="100" required><div class="hint">Skala 0–100 untuk rapor, atau 0–4 untuk IPK</div></div>
+        </div>
+      </section>
+
+      <section class="card" id="s4">
+        <h2>Data orang tua / wali</h2>
+        <p>Digunakan untuk keperluan administrasi dan komunikasi.</p>
+        <div class="grid">
+          <div><label for="ayah">Nama ayah <i>*</i></label><input id="ayah" name="ayah" required></div>
+          <div><label for="kerjaAyah">Pekerjaan ayah</label><input id="kerjaAyah" name="kerjaAyah"></div>
+          <div><label for="ibu">Nama ibu <i>*</i></label><input id="ibu" name="ibu" required></div>
+          <div><label for="kerjaIbu">Pekerjaan ibu</label><input id="kerjaIbu" name="kerjaIbu"></div>
+          <div class="full"><label for="hpWali">Nomor HP orang tua / wali <i>*</i></label><input id="hpWali" name="hpWali" type="tel" required inputmode="tel" pattern="(\+62|62|0)8[0-9]{8,12}" placeholder="08xxxxxxxxxx"></div>
+        </div>
+      </section>
+
+      <section class="card" id="s5">
+        <h2>Unggah dokumen</h2>
+        <p>Format JPG, PNG, atau PDF. Foto dari kamera HP boleh langsung diunggah, ukurannya diperkecil otomatis. Berkas PDF maksimal 2 MB.</p>
+        <div class="grid">
+          <label class="file"><span class="t">Pas foto 3×4 <i style="color:var(--err);font-style:normal">*</i></span><span class="n">Pilih berkas</span><input type="file" name="foto" accept=".jpg,.jpeg,.png" required></label>
+          <label class="file"><span class="t">KTP / Kartu Keluarga <i style="color:var(--err);font-style:normal">*</i></span><span class="n">Pilih berkas</span><input type="file" name="ktp" accept=".jpg,.jpeg,.png,.pdf" required></label>
+          <label class="file"><span class="t">Ijazah / Surat Keterangan Lulus <i style="color:var(--err);font-style:normal">*</i></span><span class="n">Pilih berkas</span><input type="file" name="ijazah" accept=".jpg,.jpeg,.png,.pdf" required></label>
+          <label class="file"><span class="t">Transkrip nilai / rapor <i style="color:var(--err);font-style:normal">*</i></span><span class="n">Pilih berkas</span><input type="file" name="rapor" accept=".jpg,.jpeg,.png,.pdf" required></label>
+        </div>
+      </section>
+
+      <div class="card">
+        <label class="check"><input type="checkbox" id="setuju" required><span>Saya menyatakan bahwa data yang diisi benar dan bersedia mengikuti seluruh ketentuan penerimaan mahasiswa baru STIKES Medika Seramoe Barat.</span></label>
+        <div class="actions" style="margin-top:22px">
+          <button type="submit" class="btn-primary">Kirim pendaftaran</button>
+          <button type="button" class="btn-line" id="btnPrint">Cetak formulir</button>
+          <span class="note">Kolom bertanda <span style="color:var(--err)">*</span> wajib diisi.</span>
+        </div>
+      </div>
+    </form>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 STIKES Medika Seramoe Barat. Semua hak dilindungi.</span>
+    <span>Kabupaten Aceh Barat, Aceh</span>
+  </div>
+</footer>
+
+<div id="sheet" aria-hidden="true">
+
+  <!-- HALAMAN 1 -->
+  <section class="pg">
+    <div class="kop">
+      <div><div class="k1">STIKES</div><div class="k2">Medika Seramoe Barat</div><div class="k3">Sekolah Tinggi Ilmu Kesehatan</div></div>
+      <div class="kop-r">Kabupaten Aceh Barat, Aceh<br>Telp. 0651-7551306<br>stikesmsb.net</div>
+    </div>
+    <div class="jd">FORMULIR PENDAFTARAN MAHASISWA BARU</div>
+    <div class="sj">Penerimaan Mahasiswa Baru 2027</div>
+
+    <div class="top">
+      <div>
+        <div class="nobox"><span>No. Pendaftaran <small>(diisi oleh petugas)</small></span><b id="pNo"></b></div>
+        <div class="pet">
+          <b>Petunjuk pengisian</b>
+          <ul>
+            <li>Isi dengan huruf cetak menggunakan pulpen hitam, sesuai KTP atau Kartu Keluarga.</li>
+            <li>Tandai pilihan dengan tanda silang (X) pada kotak.</li>
+            <li>Kolom bertanda * wajib diisi.</li>
+            <li>Biaya pendaftaran mulai Rp 150.000. Bantuan: 0651-7551306 (Senin–Jumat, 08.00–16.00 WIB).</li>
+          </ul>
+        </div>
+      </div>
+      <div class="foto" id="pFoto"><span>PAS FOTO<br>3 × 4 cm</span></div>
+    </div>
+
+    <div class="sh"><b>A</b><h3>DATA PRIBADI</h3></div>
+    <div class="sd">Sesuai dengan KTP atau Kartu Keluarga.</div>
+    <div class="g2">
+      <div class="f1"><div class="fl">Nama lengkap *</div><div class="fv" id="pNama"></div></div>
+      <div><div class="fl">NIK * (16 digit)</div><div class="fv free" id="pNik"></div></div>
+      <div><div class="fl">Jenis kelamin *</div><div class="fv free" id="pJk"></div></div>
+      <div><div class="fl">Tempat lahir *</div><div class="fv" id="pTmp"></div></div>
+      <div><div class="fl">Tanggal lahir *</div><div class="fv free" id="pTgl"></div></div>
+      <div class="f1"><div class="fl">Agama *</div><div class="fv free" id="pAgama"></div></div>
+      <div><div class="fl">Nomor HP / WhatsApp *</div><div class="fv" id="pHp"></div></div>
+      <div><div class="fl">Email *</div><div class="fv" id="pEmail"></div></div>
+      <div class="f1"><div class="fl">Alamat lengkap * (jalan, desa/kelurahan, kecamatan, kabupaten/kota)</div><div class="fv tall" id="pAlamat"></div></div>
+    </div>
+
+    <div class="sh"><b>B</b><h3>PILIHAN PROGRAM STUDI</h3></div>
+    <div class="sd">Pilihan kedua bersifat opsional dan dipakai bila pilihan pertama penuh. Program Profesi Ners hanya untuk lulusan S1 Keperawatan.</div>
+    <div class="g2">
+      <div class="f1"><div class="fl">Jalur pendaftaran *</div><div class="fv free" id="pJalur"></div></div>
+      <div class="f1"><div class="fl">Pilihan pertama *</div><div class="fv free ops3" id="pP1"></div></div>
+      <div class="f1"><div class="fl">Pilihan kedua (opsional)</div><div class="fv free ops3" id="pP2"></div></div>
+    </div>
+
+    <div class="ft"><span>Formulir Pendaftaran Mahasiswa Baru · STIKES Medika Seramoe Barat · stikesmsb.net</span><span>Halaman 1 dari 2</span></div>
+  </section>
+
+  <!-- HALAMAN 2 -->
+  <section class="pg">
+    <div class="rh"><span>Formulir Pendaftaran Mahasiswa Baru (lanjutan)</span><span>Nama pendaftar: <b id="pNama2"></b></span></div>
+
+    <div class="sh" style="margin-top:4mm"><b>C</b><h3>PENDIDIKAN TERAKHIR</h3></div>
+    <div class="sd">Data sekolah asal atau perguruan tinggi sebelumnya.</div>
+    <div class="g2">
+      <div class="f1"><div class="fl">Nama sekolah / perguruan tinggi *</div><div class="fv" id="pSekolah"></div></div>
+      <div><div class="fl">Jurusan / program studi *</div><div class="fv" id="pJurusan"></div></div>
+      <div><div class="fl">Tahun lulus *</div><div class="fv free" id="pLulus"></div></div>
+      <div><div class="fl">Rata-rata nilai rapor / IPK *</div><div class="fv" id="pNilai"></div></div>
+      <div><div class="fl">Skala nilai</div><div class="fv free" id="pSkala"></div></div>
+    </div>
+
+    <div class="sh"><b>D</b><h3>DATA ORANG TUA / WALI</h3></div>
+    <div class="sd">Digunakan untuk keperluan administrasi dan komunikasi.</div>
+    <div class="g2">
+      <div><div class="fl">Nama ayah *</div><div class="fv" id="pAyah"></div></div>
+      <div><div class="fl">Pekerjaan ayah</div><div class="fv" id="pKerjaAyah"></div></div>
+      <div><div class="fl">Nama ibu *</div><div class="fv" id="pIbu"></div></div>
+      <div><div class="fl">Pekerjaan ibu</div><div class="fv" id="pKerjaIbu"></div></div>
+      <div><div class="fl">Nomor HP orang tua / wali *</div><div class="fv" id="pHpWali"></div></div>
+    </div>
+
+    <div class="sh"><b>E</b><h3>KELENGKAPAN DOKUMEN</h3></div>
+    <div class="sd">Tandai dokumen yang disertakan. Format berkas JPG, PNG, atau PDF (PDF maksimal 2 MB).</div>
+    <div class="g2">
+      <div><div class="fl">Pas foto 3 × 4 cm *</div><div class="fv free" id="pDocFoto"></div></div>
+      <div><div class="fl">KTP / Kartu Keluarga *</div><div class="fv free" id="pDocKtp"></div></div>
+      <div><div class="fl">Ijazah / Surat Keterangan Lulus *</div><div class="fv free" id="pDocIjazah"></div></div>
+      <div><div class="fl">Transkrip nilai / rapor *</div><div class="fv free" id="pDocRapor"></div></div>
+    </div>
+
+    <div class="sh"><b>F</b><h3>PERNYATAAN</h3></div>
+    <div class="stmt">Saya menyatakan bahwa data yang saya isi pada formulir ini adalah benar dan saya bersedia mengikuti seluruh ketentuan penerimaan mahasiswa baru STIKES Medika Seramoe Barat.</div>
+    <div class="ttd">
+      <div>Orang tua / wali,<div class="sp"></div><div class="nm" id="pTtdAyah"></div><small>(nama lengkap &amp; tanda tangan)</small></div>
+      <div>Meulaboh, <span id="pTglCetak"></span><br>Pendaftar,<div class="sp" style="height:20mm"></div><div class="nm" id="pTtdNama"></div><small>(nama lengkap &amp; tanda tangan)</small></div>
+    </div>
+
+    <div class="ptg">
+      <h4>KHUSUS PETUGAS (jangan diisi oleh pendaftar)</h4>
+      <div class="op" style="margin-right:8mm"><i class="bx"></i>Berkas: Lengkap</div><div class="op"><i class="bx"></i>Belum lengkap</div>
+      <div class="row"><span>Tanggal diterima:</span><span class="ln"></span><span>Nama petugas:</span><span class="ln"></span><span>Paraf:</span><span class="ln"></span></div>
+    </div>
+
+    <div class="ft"><span>Formulir Pendaftaran Mahasiswa Baru · STIKES Medika Seramoe Barat · stikesmsb.net</span><span>Halaman 2 dari 2</span></div>
+  </section>
+</div>
+
+<script>
+// Tempel URL Web App Google Apps Script di sini (lihat panduan)
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbxyY4hVXgbQWoIgxkW4_RH4Mh-TsmfMSYkjhdtgol3CNy6DLCa3P0cl9Tqf7Ey9VXTS/exec';
+const prodi=[["S1 Keperawatan"],["D3 Kebidanan"],["S1 Kesehatan Masyarakat"],["D3 Farmasi"],["S1 Gizi"],["Profesi Ners"]];
+["p1","p2"].forEach((id,i)=>{
+  const s=document.getElementById(id);
+  s.innerHTML='<option value="">'+(i?'Tidak ada':'Pilih program studi')+'</option>'+prodi.map(p=>'<option>'+p[0]+'</option>').join('');
+});
+
+// Validasi berkas: foto dikompres otomatis, PDF maks 2 MB
+const nt=document.getElementById('navToggle'),nl=document.getElementById('navLinks');
+nt.addEventListener('click',()=>{const o=nl.classList.toggle('open');nt.setAttribute('aria-expanded',o)});
+nl.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{nl.classList.remove('open');nt.setAttribute('aria-expanded',false)}));
+document.querySelectorAll('.file input').forEach(inp=>{
+  inp.addEventListener('change',()=>{
+    const box=inp.closest('.file'),n=box.querySelector('.n'),f=inp.files[0];
+    box.classList.remove('ok','bad');
+    if(!f){n.textContent='Pilih berkas';return}
+    const isImg=f.type.startsWith('image/')||/\.(jpe?g|png)$/i.test(f.name);
+    if(!isImg&&f.size>2*1024*1024){inp.value='';box.classList.add('bad');n.textContent='PDF melebihi 2 MB, pilih berkas lain';return}
+    if(isImg&&f.size>30*1024*1024){inp.value='';box.classList.add('bad');n.textContent='Foto terlalu besar (maks 30 MB)';return}
+    box.classList.add('ok');n.textContent=f.name;
+  });
+});
+
+// Penanda langkah aktif saat scroll
+const links=[...document.querySelectorAll('#steps a')];
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting)links.forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id));
+}),{rootMargin:'-30% 0px -60% 0px'});
+document.querySelectorAll('.card[id]').forEach(c=>io.observe(c));
+
+// Kirim
+const form=document.getElementById('form'),err=document.getElementById('formErr');
+if(/FBAN|FBAV|Instagram|Line\/|MicroMessenger|TikTok/i.test(navigator.userAgent)){
+  err.textContent='Anda membuka halaman ini di dalam aplikasi lain. Agar pendaftaran berhasil, buka lewat Chrome atau Safari (menu titik tiga > Buka di browser).';
+  err.style.display='block';
+}
+form.addEventListener('submit',async e=>{
+  e.preventDefault();
+  err.style.display='none';
+  if(!form.checkValidity()){
+    const bad=form.querySelector(':invalid');
+    let msg='Lengkapi kolom yang belum diisi atau periksa format isiannya.';
+    if(bad&&bad.type==='checkbox')msg='Centang pernyataan persetujuan sebelum mengirim.';
+    else if(bad&&bad.type==='file')msg='Unggah semua dokumen yang diwajibkan.';
+    else if(bad&&bad.id==='nik')msg='NIK harus 16 digit angka.';
+    else if(bad&&(bad.id==='hp'||bad.id==='hpWali'))msg='Nomor HP harus diawali 08 atau +62.';
+    err.textContent=msg;err.style.display='block';
+    if(bad){bad.closest('.card').scrollIntoView({behavior:'smooth'});bad.focus({preventScroll:true})}
+    return;
+  }
+  const btn=form.querySelector('button[type=submit]');
+  btn.disabled=true;btn.textContent='Mengirim, jangan tutup halaman...';
+  try{
+    const d=new FormData(form);
+    const data={};
+    for(const [k,v] of d.entries()){if(!(v instanceof File))data[k]=v}
+    data.files={};
+    btn.textContent='Memproses berkas...';
+    for(const n of ['foto','ktp','ijazah','rapor']){data.files[n]=await filePayload(form.elements[n].files[0])}
+    btn.textContent='Mengirim data, mohon tunggu (bisa 20-60 detik)...';
+    const ctl=new AbortController(),tm=setTimeout(()=>ctl.abort(),150000);
+    let out;
+    try{
+      const res=await fetch(SCRIPT_URL,{method:'POST',body:JSON.stringify(data),signal:ctl.signal});
+      out=await res.json();
+    }catch(e){
+      throw new Error(e.name==='AbortError'?'Waktu tunggu habis, sinyal mungkin lemah':'Koneksi ke server gagal');
+    }finally{clearTimeout(tm)}
+    if(!out.ok)throw new Error(out.error||'Data gagal disimpan');
+
+    document.getElementById('dNama').textContent=d.get('nama').split(' ')[0];
+    document.getElementById('dNo').textContent=out.nomor;window._no=out.nomor;
+    const rows=[['Nama',d.get('nama')],['Jalur',d.get('jalur')],['Pilihan 1',d.get('p1')],['Pilihan 2',d.get('p2')||'-'],['Email',d.get('email')]];
+    document.getElementById('dSum').innerHTML=rows.map(r=>'<div><span>'+r[0]+'</span><span></span></div>').join('');
+    document.querySelectorAll('#dSum div').forEach((el,i)=>el.lastChild.textContent=rows[i][1]);
+    form.style.display='none';
+    document.getElementById('done').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+  }catch(ex){
+    err.textContent='Pendaftaran belum terkirim: '+ex.message+'. Periksa koneksi lalu coba lagi.';
+    err.style.display='block';
+    err.scrollIntoView({behavior:'smooth',block:'center'});
+  }finally{
+    btn.disabled=false;btn.textContent='Kirim pendaftaran';
+  }
+});
+
+// Baca berkas; foto dikecilkan (maks 1280 px, JPEG) agar ringan dikirim lewat jaringan HP
+async function filePayload(f){
+  const isImg=f.type.startsWith('image/')||/\.(jpe?g|png)$/i.test(f.name);
+  if(!isImg){
+    const data=await new Promise((ok,fail)=>{
+      const r=new FileReader();
+      r.onerror=()=>fail(new Error('Berkas '+f.name+' tidak bisa dibaca'));
+      r.onload=()=>ok(r.result.split(',')[1]);
+      r.readAsDataURL(f);
+    });
+    return {name:f.name,type:'application/pdf',data};
+  }
+  let src,w,h;
+  try{
+    src=await createImageBitmap(f,{imageOrientation:'from-image'});
+    w=src.width;h=src.height;
+  }catch(e){
+    src=await new Promise((ok,fail)=>{
+      const u=URL.createObjectURL(f),img=new Image();
+      img.onload=()=>ok(img);
+      img.onerror=()=>fail(new Error('Foto '+f.name+' tidak bisa dibaca. Coba foto lain atau simpan sebagai JPG.'));
+      img.src=u;
+    });
+    w=src.naturalWidth;h=src.naturalHeight;
+  }
+  const k=Math.min(1,1280/Math.max(w,h));
+  const c=document.createElement('canvas');
+  c.width=Math.max(1,Math.round(w*k));c.height=Math.max(1,Math.round(h*k));
+  c.getContext('2d').drawImage(src,0,0,c.width,c.height);
+  const url=c.toDataURL('image/jpeg',0.78);
+  if(!url||url.length<100)throw new Error('Foto '+f.name+' gagal diproses. Coba foto lain.');
+  return {name:f.name.replace(/\.\w+$/,'')+'.jpg',type:'image/jpeg',data:url.split(',')[1]};
+}
+
+
+// ===== Lembar cetak: isi otomatis dari data formulir, tampil seperti PDF =====
+const _E=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const _U=s=>String(s||'').trim().toUpperCase();
+const _$=id=>document.getElementById(id);
+const _cells=(s,n)=>{s=String(s||'');let h='';for(let i=0;i<n;i++)h+='<i>'+_E(s[i]||'')+'</i>';return '<span class="cells">'+h+'</span>'};
+const _opts=(list,sel)=>list.map(o=>{const v=Array.isArray(o)?o[0]:o,l=Array.isArray(o)?o[1]:o;return '<span class="op"><i class="bx">'+(v===sel?'X':'')+'</i>'+_E(l)+'</span>'}).join('');
+const _set=(id,t)=>{_$(id).textContent=t};
+let _fotoURL=null;
+
+function fillSheet(nomor){
+  const g=n=>(form.elements[n]&&form.elements[n].value)||'';
+  _set('pNo',nomor||'');
+  _set('pNama',_U(g('nama')));_set('pNama2',_U(g('nama')));
+  _$('pNik').innerHTML=_cells(g('nik'),16);
+  _$('pJk').innerHTML=_opts(['Laki-laki','Perempuan'],g('jk'));
+  _set('pTmp',_U(g('tmp')));
+  const t=g('tgl').split('-');
+  _$('pTgl').innerHTML=_cells(t[2],2)+'<span class="sl">/</span>'+_cells(t[1],2)+'<span class="sl">/</span>'+_cells(t[0],4)+'<span class="hint">tgl / bln / tahun</span>';
+  _$('pAgama').innerHTML=_opts(['Islam','Kristen','Katolik','Hindu','Buddha','Konghucu'],g('agama'));
+  _set('pHp',g('hp'));_set('pEmail',g('email'));_set('pAlamat',_U(g('alamat')));
+  _$('pJalur').innerHTML=_opts([['Reguler','Reguler'],['Pindahan','Pindahan'],['RPL','Rekognisi Pembelajaran Lampau (RPL)']],g('jalur'));
+  _$('pP1').innerHTML=_opts(prodi.map(p=>p[0]),g('p1'));
+  _$('pP2').innerHTML=_opts(prodi.map(p=>p[0]),g('p2'));
+  _set('pSekolah',_U(g('sekolah')));_set('pJurusan',_U(g('jurusan')));
+  _$('pLulus').innerHTML=_cells(g('lulus'),4);
+  const nv=parseFloat(g('nilai'));
+  _set('pNilai',isNaN(nv)?'':nv.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}));
+  _$('pSkala').innerHTML=_opts([['rapor','0–100 (rapor)'],['ipk','0–4 (IPK)']],isNaN(nv)?'':(nv<=4?'ipk':'rapor'));
+  _set('pAyah',_U(g('ayah')));_set('pKerjaAyah',_U(g('kerjaAyah')));
+  _set('pIbu',_U(g('ibu')));_set('pKerjaIbu',_U(g('kerjaIbu')));
+  _set('pHpWali',g('hpWali'));
+  [['pDocFoto','foto'],['pDocKtp','ktp'],['pDocIjazah','ijazah'],['pDocRapor','rapor']].forEach(([id,n])=>{
+    _$(id).innerHTML=_opts([['y','Terlampir']],form.elements[n].files.length?'y':'');
+  });
+  _set('pTtdAyah',_U(g('ayah')));_set('pTtdNama',_U(g('nama')));
+  _set('pTglCetak',new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}));
+
+  // Pas foto: tampilkan foto yang dipilih di kotak 3 x 4
+  const box=_$('pFoto'),f=form.elements.foto.files[0];
+  if(_fotoURL){URL.revokeObjectURL(_fotoURL);_fotoURL=null}
+  box.querySelectorAll('img').forEach(i=>i.remove());
+  if(f){
+    _fotoURL=URL.createObjectURL(f);
+    const img=new Image();img.src=_fotoURL;img.alt='';
+    box.appendChild(img);
+    return img.decode?img.decode().catch(()=>{}):Promise.resolve();
+  }
+  return Promise.resolve();
+}
+
+async function printSheet(nomor){
+  await fillSheet(nomor);
+  window.print();
+}
+_$('btnPrint').addEventListener('click',()=>printSheet(window._no));
+
+</script>
+</body>
+</html>
