@@ -158,6 +158,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 #sheet .ptg .ln{flex:1;border-bottom:1px solid #000;min-height:6mm;display:flex;align-items:flex-end;gap:2mm}
 #sheet .ft{position:absolute;left:14mm;right:14mm;bottom:8mm;border-top:1px solid #000;padding-top:1.5mm;display:flex;justify-content:space-between;font-size:7.5pt}
 
+#sheet .lamp-t{font-weight:700;font-size:10pt;margin:3mm 0 2mm}
+#sheet .lamp-box{height:238mm;border:1px solid #000;display:grid;place-items:center;overflow:hidden;font-size:9pt;text-align:center;padding:4mm}
+#sheet .lamp-box img{max-width:100%;max-height:229mm;object-fit:contain}
 #btnPrint{margin-left:0}
 @media print{
   @page{size:A4;margin:0}
@@ -203,7 +206,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     </ol>
     <div class="info">
       <span class="serif">Info pendaftaran</span>
-      <div>Gelombang 1 ditutup <strong>30 September 2026</strong></div>
       <div>Biaya pendaftaran mulai <strong>Rp 150.000</strong></div>
       <div>Bantuan: <strong>0651-7551306</strong><br>Senin–Jumat, 08.00–16.00 WIB</div>
     </div>
@@ -247,9 +249,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
         <div class="grid">
           <div class="full"><label>Jalur pendaftaran <i>*</i></label>
             <div class="radios">
-              <label><input type="radio" name="jalur" value="Reguler" required checked> Reguler</label>
+              <label><input type="radio" name="jalur" value="RPL" required checked> Program RPL</label>
               <label><input type="radio" name="jalur" value="Pindahan"> Pindahan</label>
-              <label><input type="radio" name="jalur" value="RPL"> Rekognisi Pembelajaran Lampau</label>
             </div>
           </div>
           <div><label for="p1">Pilihan pertama <i>*</i></label>
@@ -362,7 +363,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
       <div class="f1"><div class="fl">Pilihan kedua (opsional)</div><div class="fv free ops3" id="pP2"></div></div>
     </div>
 
-    <div class="ft"><span>Formulir Pendaftaran Mahasiswa Baru · STIKES Medika Seramoe Barat · stikesmsb.net</span><span>Halaman 1 dari 2</span></div>
+    <div class="ft"><span>Formulir Pendaftaran Mahasiswa Baru · STIKES Medika Seramoe Barat · stikesmsb.net</span><span class="pgno"></span></div>
   </section>
 
   <!-- HALAMAN 2 -->
@@ -411,7 +412,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
       <div class="row"><span>Tanggal diterima:</span><span class="ln"></span><span>Nama petugas:</span><span class="ln"></span><span>Paraf:</span><span class="ln"></span></div>
     </div>
 
-    <div class="ft"><span>Formulir Pendaftaran Mahasiswa Baru · STIKES Medika Seramoe Barat · stikesmsb.net</span><span>Halaman 2 dari 2</span></div>
+    <div class="ft"><span>Formulir Pendaftaran Mahasiswa Baru · STIKES Medika Seramoe Barat · stikesmsb.net</span><span class="pgno"></span></div>
   </section>
 </div>
 
@@ -548,7 +549,7 @@ const _opts=(list,sel)=>list.map(o=>{const v=Array.isArray(o)?o[0]:o,l=Array.isA
 const _set=(id,t)=>{_$(id).textContent=t};
 let _fotoURL=null;
 
-function fillSheet(nomor){
+function _fillBase(nomor){
   const g=n=>(form.elements[n]&&form.elements[n].value)||'';
   _set('pNo',nomor||'');
   _set('pNama',_U(g('nama')));_set('pNama2',_U(g('nama')));
@@ -559,7 +560,7 @@ function fillSheet(nomor){
   _$('pTgl').innerHTML=_cells(t[2],2)+'<span class="sl">/</span>'+_cells(t[1],2)+'<span class="sl">/</span>'+_cells(t[0],4)+'<span class="hint">tgl / bln / tahun</span>';
   _$('pAgama').innerHTML=_opts(['Islam','Kristen','Katolik','Hindu','Buddha','Konghucu'],g('agama'));
   _set('pHp',g('hp'));_set('pEmail',g('email'));_set('pAlamat',_U(g('alamat')));
-  _$('pJalur').innerHTML=_opts([['Reguler','Reguler'],['Pindahan','Pindahan'],['RPL','Rekognisi Pembelajaran Lampau (RPL)']],g('jalur'));
+  _$('pJalur').innerHTML=_opts([['RPL','Program RPL'],['Pindahan','Pindahan']],g('jalur'));
   _$('pP1').innerHTML=_opts(prodi.map(p=>p[0]),g('p1'));
   _$('pP2').innerHTML=_opts(prodi.map(p=>p[0]),g('p2'));
   _set('pSekolah',_U(g('sekolah')));_set('pJurusan',_U(g('jurusan')));
@@ -589,10 +590,70 @@ function fillSheet(nomor){
   return Promise.resolve();
 }
 
+async function fillSheet(nomor){await _fillBase(nomor);await buildLampiran()}
 async function printSheet(nomor){
-  await fillSheet(nomor);
+  const b=_$('btnPrint'),t=b.textContent;
+  b.disabled=true;b.textContent='Menyiapkan...';
+  try{await fillSheet(nomor)}finally{b.disabled=false;b.textContent=t}
   window.print();
 }
+
+// ===== Lampiran: berkas yang diunggah ikut tercetak sebagai halaman lanjutan =====
+const _LAMP=[['ktp','KTP / Kartu Keluarga'],['ijazah','Ijazah / Surat Keterangan Lulus'],['rapor','Transkrip nilai / rapor']];
+let _lampURLs=[];
+function _loadPdfJs(){
+  if(window.pdfjsLib)return Promise.resolve();
+  return new Promise((ok,fail)=>{
+    const s=document.createElement('script');
+    s.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+    s.onload=()=>{pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';ok()};
+    s.onerror=()=>fail(new Error('pdf.js gagal dimuat'));
+    document.head.appendChild(s);
+  });
+}
+async function buildLampiran(){
+  const sheet=_$('sheet');
+  sheet.querySelectorAll('.pg.lamp').forEach(p=>p.remove());
+  _lampURLs.forEach(u=>URL.revokeObjectURL(u));_lampURLs=[];
+  const nama=_U(form.elements.nama.value);
+  const items=[];let no=0;
+  for(const [n,label] of _LAMP){
+    const f=form.elements[n].files[0];
+    if(!f)continue;
+    no++;
+    const isImg=f.type.startsWith('image/')||/\.(jpe?g|png)$/i.test(f.name);
+    const srcs=[];
+    if(isImg){const u=URL.createObjectURL(f);_lampURLs.push(u);srcs.push(u)}
+    else{
+      try{
+        await _loadPdfJs();
+        const pdf=await pdfjsLib.getDocument({data:await f.arrayBuffer()}).promise;
+        for(let p=1;p<=pdf.numPages;p++){
+          const page=await pdf.getPage(p),vp=page.getViewport({scale:1.6});
+          const c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;
+          await page.render({canvasContext:c.getContext('2d'),viewport:vp}).promise;
+          srcs.push(c.toDataURL('image/jpeg',0.85));
+        }
+      }catch(e){srcs.push(null)}
+    }
+    srcs.forEach((s,k)=>items.push({
+      label:'Lampiran '+no+': '+label+(srcs.length>1?' (hal. '+(k+1)+' dari '+srcs.length+')':''),
+      src:s,name:f.name
+    }));
+  }
+  items.forEach(it=>{
+    const pg=document.createElement('section');pg.className='pg lamp';
+    pg.innerHTML='<div class="rh"><span>Formulir Pendaftaran Mahasiswa Baru (lampiran)</span><span>Nama pendaftar: <b>'+_E(nama)+'</b></span></div>'
+      +'<div class="lamp-t">'+_E(it.label)+'</div>'
+      +'<div class="lamp-box">'+(it.src?'<img src="'+it.src+'" alt="">':'<span>Berkas '+_E(it.name)+' tidak dapat ditampilkan. Serahkan salinannya kepada petugas.</span>')+'</div>'
+      +'<div class="ft"><span>Formulir Pendaftaran Mahasiswa Baru · STIKES Medika Seramoe Barat · stikesmsb.net</span><span class="pgno"></span></div>';
+    sheet.appendChild(pg);
+  });
+  await Promise.all([...sheet.querySelectorAll('.lamp img')].map(i=>i.decode?i.decode().catch(()=>{}):0));
+  const all=sheet.querySelectorAll('.pg');
+  all.forEach((p,i)=>p.querySelector('.pgno').textContent='Halaman '+(i+1)+' dari '+all.length);
+}
+
 _$('btnPrint').addEventListener('click',()=>printSheet(window._no));
 
 </script>
