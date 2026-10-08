@@ -6,6 +6,7 @@
 <title>Pendaftaran Mahasiswa Baru | STIKES Medika Seramoe Barat</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 :root{--navy-deep:#0A1E33;--navy-mid:#0E2A47;--navy-light:#123457;--gold:#F4E3B2;--gold-dim:#C9AE6E;--sky:#5BAEEA;--sky-deep:#1D8FE1;--cream:#FBF8F1;--ink:#0A1E33;--muted:#5C6B7A;--line:#e8e2d4;--err:#b3261e}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -17,6 +18,12 @@ a{text-decoration:none;color:inherit}
 .eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-dim);font-weight:500}
 
 header{position:sticky;top:0;z-index:50;background:var(--navy-deep);border-bottom:1px solid rgba(244,227,178,.15)}
+.topbar{background:var(--sky-deep)}
+.topbar .wrap{display:flex;flex-wrap:wrap;font-size:12px;font-weight:600;color:#fff}
+.topbar a{display:flex;align-items:center;gap:8px;padding:10px 16px;border-right:1px solid rgba(255,255,255,.25);transition:color .3s}
+.topbar a:first-child{padding-left:0}
+.topbar a:last-child{border-right:none}
+.topbar a:hover{color:var(--gold)}
 nav{display:flex;align-items:center;justify-content:space-between;padding:20px 32px;max-width:1120px;margin:0 auto}
 .logo{font-family:'Cormorant Garamond',serif;display:flex;flex-direction:column;line-height:1}
 .logo-top{font-size:20px;color:var(--gold);letter-spacing:1px;font-weight:600}
@@ -35,7 +42,7 @@ header{position:sticky}
 .hero p{font-size:15px;color:rgba(255,255,255,.65);max-width:480px;margin:0 auto}
 
 .layout{display:grid;grid-template-columns:280px 1fr;gap:40px;padding:64px 32px 96px;align-items:start}
-.side{position:sticky;top:110px;display:flex;flex-direction:column;gap:18px}
+.side{position:sticky;top:150px;display:flex;flex-direction:column;gap:18px}
 .steps{background:#fff;border:1px solid var(--line);border-radius:4px;padding:8px 22px;list-style:none}
 .steps a{display:flex;gap:12px;align-items:center;padding:13px 0;font-size:13px;color:var(--muted);border-bottom:1px solid var(--line);transition:all .3s}
 .steps li:last-child a{border-bottom:none}
@@ -46,7 +53,7 @@ header{position:sticky}
 .info div{padding:8px 0;border-top:1px solid rgba(244,227,178,.12)}
 .info strong{color:#fff;font-weight:600}
 
-.card{background:#fff;border:1px solid var(--line);border-radius:4px;padding:34px;margin-bottom:20px;scroll-margin-top:110px}
+.card{background:#fff;border:1px solid var(--line);border-radius:4px;padding:34px;margin-bottom:20px;scroll-margin-top:150px}
 .card h2{font-size:28px;color:var(--navy-deep);margin-bottom:4px}
 .card>p{font-size:13px;color:var(--muted);margin-bottom:24px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 20px}
@@ -92,6 +99,8 @@ input:user-invalid,select:user-invalid{border-color:var(--err)}
 footer{background:var(--navy-deep);padding:32px;color:rgba(255,255,255,.55);font-size:12px}
 footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 :focus-visible{outline:2px solid var(--sky);outline-offset:2px}
+#demoBtn{display:inline-block;width:10px;height:10px;margin-left:6px;vertical-align:middle;border:0;border-radius:50%;background:currentColor;opacity:.12;cursor:pointer;padding:0;transition:opacity .3s}
+#demoBtn:hover,#demoBtn:focus-visible{opacity:.7}
 
 @media (max-width:860px){
   .layout{grid-template-columns:1fr;padding:40px 20px 72px}
@@ -105,6 +114,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   .nav-links a{padding:13px 0;border-bottom:1px solid rgba(255,255,255,.08)}
   .nav-links a:last-child{border-bottom:none}
   .card{padding:24px 20px}
+  .topbar .wrap{flex-wrap:nowrap;overflow-x:auto;padding:0 20px;scrollbar-width:none}
+  .topbar .wrap::-webkit-scrollbar{display:none}
+  .topbar a{white-space:nowrap;flex:none}
+  .topbar a:first-child{padding-left:0}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 
@@ -177,6 +190,17 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 <body>
 
 <header>
+  <div class="topbar">
+    <div class="wrap">
+      <a href="/perpustakaan/"><i class="fas fa-building-columns"></i> Perpustakaan</a>
+      <a href="/katalog"><i class="fas fa-book"></i> Katalog online</a>
+      <a href="/ejournal"><i class="fas fa-newspaper"></i> E-journal</a>
+      <a href="/repository"><i class="fas fa-database"></i> Repository</a>
+      <a href="/lppm" title="Lembaga Penelitian dan Pengabdian kepada Masyarakat"><i class="fas fa-flask"></i> LPPM</a>
+      <a href="/lpm" title="Lembaga Penjamin Mutu"><i class="fas fa-award"></i> LPM</a>
+      <a href="/area-anggota"><i class="fas fa-user-lock"></i> Area anggota</a>
+    </div>
+  </div>
   <nav>
     <a href="/" class="logo"><div class="logo-top">STIKES</div><div class="logo-bottom">Medika Seramoe Barat</div></a>
     <div class="nav-links" id="navLinks">
@@ -248,7 +272,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
       <section class="card" id="s2">
         <h2>Pilihan program studi</h2>
-        <p>Pilihan kedua bersifat opsional dan dipakai bila pilihan pertama penuh.</p>
+        <p>Pilih satu program studi yang dituju.</p>
         <div class="grid">
           <div class="full"><label>Jalur pendaftaran <i>*</i></label>
             <div class="radios">
@@ -256,10 +280,8 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
               <label><input type="radio" name="jalur" value="Pindahan"> Pindahan</label>
             </div>
           </div>
-          <div><label for="p1">Pilihan pertama <i>*</i></label>
+          <div class="full"><label for="p1">Program studi <i>*</i></label>
             <select id="p1" name="p1" required></select></div>
-          <div><label for="p2">Pilihan kedua</label>
-            <select id="p2" name="p2"></select></div>
         </div>
       </section>
 
@@ -318,7 +340,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 <footer>
   <div class="wrap">
     <span>© 2026 STIKES Medika Seramoe Barat. Semua hak dilindungi.</span>
-    <span>Kabupaten Aceh Barat, Aceh</span>
+    <span>Kabupaten Aceh Barat, Aceh <button type="button" id="demoBtn" aria-label="Isi data contoh" title="Isi data contoh"></button></span>
   </div>
 </footer>
 
@@ -364,11 +386,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     </div>
 
     <div class="sh"><b>B</b><h3>PILIHAN PROGRAM STUDI</h3></div>
-    <div class="sd">Pilihan kedua bersifat opsional dan dipakai bila pilihan pertama penuh.</div>
+    <div class="sd">Pilih satu program studi yang dituju.</div>
     <div class="g2">
       <div class="f1"><div class="fl">Jalur pendaftaran *</div><div class="fv free" id="pJalur"></div></div>
-      <div class="f1"><div class="fl">Pilihan pertama *</div><div class="fv free ops3" id="pP1"></div></div>
-      <div class="f1"><div class="fl">Pilihan kedua (opsional)</div><div class="fv free ops3" id="pP2"></div></div>
+      <div class="f1"><div class="fl">Program studi *</div><div class="fv free ops3" id="pP1"></div></div>
     </div>
 
     <div class="ft"><span>Formulir Pendaftaran Mahasiswa Baru · STIKES Medika Seramoe Barat · stikesmsb.net</span><span class="pgno"></span></div>
@@ -429,19 +450,9 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 <script>
 // URL Web App Google Apps Script diatur di /gs.js
 const prodi=[["S1 Keperawatan"],["D3 Kebidanan"],["Profesi Ners"]];
-["p1","p2"].forEach((id,i)=>{
-  const s=document.getElementById(id);
-  s.innerHTML='<option value="">'+(i?'Tidak ada':'Pilih program studi')+'</option>'+prodi.map(p=>'<option>'+p[0]+'</option>').join('');
-});
+document.getElementById('p1').innerHTML='<option value="">Pilih program studi</option>'+prodi.map(p=>'<option>'+p[0]+'</option>').join('');
 
-function syncProdi(){
-  const v1=document.getElementById('p1').value,s2=document.getElementById('p2');
-  [...s2.options].forEach(o=>{o.disabled=!!v1&&o.value===v1&&o.value!==''});
-  if(s2.value===v1)s2.value='';
-}
-document.getElementById('p1').addEventListener('change',syncProdi);
-
-// 11. Batas tanggal lahir
+// Batas tanggal lahir
 (function(){const t=document.getElementById('tgl'),n=new Date();
   t.max=n.toISOString().slice(0,10);t.min='1950-01-01';})();
 
@@ -513,7 +524,7 @@ form.addEventListener('submit',async e=>{
 
     document.getElementById('dNama').textContent=d.get('nama').split(' ')[0];
     document.getElementById('dNo').textContent=out.nomor;window._no=out.nomor;
-    const rows=[['Nama',d.get('nama')],['Jalur',d.get('jalur')],['Pilihan 1',d.get('p1')],['Pilihan 2',d.get('p2')||'-'],['Email',d.get('email')]];
+    const rows=[['Nama',d.get('nama')],['Jalur',d.get('jalur')],['Program studi',d.get('p1')],['Email',d.get('email')]];
     document.getElementById('dSum').innerHTML=rows.map(r=>'<div><span>'+r[0]+'</span><span></span></div>').join('');
     document.querySelectorAll('#dSum div').forEach((el,i)=>el.lastChild.textContent=rows[i][1]);
     form.style.display='none';
@@ -585,7 +596,6 @@ function _fillBase(nomor){
   _set('pHp',g('hp'));_set('pEmail',g('email'));_set('pAlamat',_U(g('alamat')));
   _$('pJalur').innerHTML=_opts([['RPL','Program RPL'],['Pindahan','Pindahan']],g('jalur'));
   _$('pP1').innerHTML=_opts(prodi.map(p=>p[0]),g('p1'));
-  _$('pP2').innerHTML=_opts(prodi.map(p=>p[0]),g('p2'));
   const pt=g('jenjang')==='Perguruan Tinggi';
   _$('pJenjang').innerHTML=_opts([['Sekolah','SMA / SMK / MA sederajat'],['Perguruan Tinggi','Perguruan tinggi']],g('jenjang'));
   _set('pLRapor',pt?'Transkrip nilai *':'Transkrip nilai / rapor *');
@@ -695,14 +705,13 @@ function applyJenjang(){
 document.querySelectorAll('input[name=jenjang]').forEach(r=>r.addEventListener('change',applyJenjang));
 applyJenjang();
 
-// ===== Data contoh dari PDF: hanya terisi bila alamat halaman diakhiri ?demo =====
-const DEMO=/[?&]demo\b/.test(location.search);
-if(DEMO){
+// ===== Data contoh: diisi lewat tombol kecil di footer =====
+function fillDemo(){
+  if(form.elements.nama.value.trim()&&!confirm('Isian yang sudah ada akan diganti data contoh. Lanjutkan?'))return;
   const d={nama:'Aisyah Rahmawati',nik:'1105016506080002',jk:'Perempuan',tmp:'Meulaboh',tgl:'2008-06-25',agama:'Islam',hp:'082120999960',email:'aisyah.rahmawati@example.com',alamat:'Jl. Teuku Umar No. 12, Gampong Ujong Tanoh Darat, Kec. Johan Pahlawan, Kab. Aceh Barat',p1:'S1 Keperawatan',sekolah:'SMA Negeri 1 Meulaboh',jurusan:'IPA (MIPA)',lulus:'2026',nilai:'86.40',ayah:'Muhammad Yusuf',kerjaAyah:'Wiraswasta',ibu:'Nurhayati',kerjaIbu:'Ibu rumah tangga',hpWali:'081265432100'};
   Object.keys(d).forEach(k=>{form.elements[k].value=d[k]});
   document.getElementById('setuju').checked=true;
   form.elements.jalur.value='RPL';
-  syncProdi();
   [['foto','PAS FOTO 3x4',300,400],['ktp','CONTOH KTP / KK',1000,630],['ijazah','CONTOH IJAZAH',800,1100],['rapor','CONTOH TRANSKRIP / RAPOR',900,1200]].forEach(([n,t,w,h])=>{
     const c=document.createElement('canvas');c.width=w;c.height=h;
     const x=c.getContext('2d');
@@ -718,6 +727,7 @@ if(DEMO){
     },'image/jpeg',0.85);
   });
 }
+document.getElementById('demoBtn').addEventListener('click',fillDemo);
 </script>
 </body>
 </html>
