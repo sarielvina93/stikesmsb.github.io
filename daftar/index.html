@@ -149,10 +149,10 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 #sheet .rh{display:flex;justify-content:space-between;border-bottom:1px solid #000;padding-bottom:1.5mm;font-size:8.5pt}
 #sheet .stmt{font-size:9pt;margin:2mm 0 3mm}
 #sheet .ttd{display:grid;grid-template-columns:1fr 1fr;gap:10mm;text-align:center;font-size:9pt}
-#sheet .ttd .sp{height:24mm}
+#sheet .ttd .sp{height:19mm}
 #sheet .ttd .nm{border-top:1px solid #000;padding-top:1mm;font-weight:600;min-height:6mm}
 #sheet .ttd small{display:block;font-size:7.5pt;font-weight:400}
-#sheet .ptg{border:1px dashed #000;padding:3mm 4mm;margin-top:7mm;font-size:8.5pt}
+#sheet .ptg{border:1px dashed #000;padding:3mm 4mm;margin-top:5mm;font-size:8.5pt}
 #sheet .ptg h4{font-family:'Inter',Arial,sans-serif;font-size:8.5pt;font-weight:700;margin-bottom:2.5mm}
 #sheet .ptg .row{display:flex;gap:8mm;align-items:flex-end;margin-top:2.5mm}
 #sheet .ptg .ln{flex:1;border-bottom:1px solid #000;min-height:6mm;display:flex;align-items:flex-end;gap:2mm}
@@ -161,9 +161,13 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 #sheet .lamp-t{font-weight:700;font-size:10pt;margin:3mm 0 2mm}
 #sheet .lamp-box{height:238mm;border:1px solid #000;display:grid;place-items:center;overflow:hidden;font-size:9pt;text-align:center;padding:4mm}
 #sheet .lamp-box img{max-width:100%;max-height:229mm;object-fit:contain}
+#sheet .pg.land{page:land;width:297mm;height:209.5mm}
+#sheet .pg.land .lamp-box{height:160mm}
+#sheet .pg.land .lamp-box img{max-height:152mm}
 #btnPrint{margin-left:0}
 @media print{
   @page{size:A4;margin:0}
+  @page land{size:A4 landscape;margin:0}
   html,body{background:#fff!important}
   body>*:not(#sheet){display:none!important}
   #sheet{display:block}
@@ -207,7 +211,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     <div class="info">
       <span class="serif">Info pendaftaran</span>
       <div>Biaya pendaftaran mulai <strong>Rp 150.000</strong></div>
-      <div>Bantuan: <strong>0651-7551306</strong><br>Senin–Jumat, 08.00–16.00 WIB</div>
     </div>
   </aside>
 
@@ -249,7 +252,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
         <div class="grid">
           <div class="full"><label>Jalur pendaftaran <i>*</i></label>
             <div class="radios">
-              <label><input type="radio" name="jalur" value="RPL" required checked> Program RPL</label>
+              <label><input type="radio" name="jalur" value="RPL" required> Program RPL</label>
               <label><input type="radio" name="jalur" value="Pindahan"> Pindahan</label>
             </div>
           </div>
@@ -257,7 +260,6 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
             <select id="p1" name="p1" required></select></div>
           <div><label for="p2">Pilihan kedua</label>
             <select id="p2" name="p2"></select></div>
-          <div class="full"><div class="hint">Program Profesi Ners hanya untuk lulusan S1 Keperawatan.</div></div>
         </div>
       </section>
 
@@ -265,10 +267,16 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
         <h2>Pendidikan terakhir</h2>
         <p>Data sekolah asal atau perguruan tinggi sebelumnya.</p>
         <div class="grid">
-          <div class="full"><label for="sekolah">Nama sekolah / perguruan tinggi <i>*</i></label><input id="sekolah" name="sekolah" required></div>
-          <div><label for="jurusan">Jurusan / program studi <i>*</i></label><input id="jurusan" name="jurusan" required></div>
+          <div class="full"><label>Pendidikan terakhir <i>*</i></label>
+            <div class="radios">
+              <label><input type="radio" name="jenjang" value="Sekolah" required checked> SMA / SMK / MA sederajat</label>
+              <label><input type="radio" name="jenjang" value="Perguruan Tinggi"> Perguruan tinggi</label>
+            </div>
+          </div>
+          <div class="full"><label for="sekolah" id="lSekolah">Nama sekolah <i>*</i></label><input id="sekolah" name="sekolah" required></div>
+          <div><label for="jurusan" id="lJurusan">Jurusan <i>*</i></label><input id="jurusan" name="jurusan" required></div>
           <div><label for="lulus">Tahun lulus <i>*</i></label><input id="lulus" name="lulus" required inputmode="numeric" pattern="(19|20)[0-9]{2}" maxlength="4" placeholder="2026"></div>
-          <div class="full"><label for="nilai">Rata-rata nilai rapor / IPK <i>*</i></label><input id="nilai" name="nilai" type="number" step="0.01" min="0" max="100" required><div class="hint">Skala 0–100 untuk rapor, atau 0–4 untuk IPK</div></div>
+          <div class="full"><label for="nilai" id="lNilai">Rata-rata nilai rapor <i>*</i></label><input id="nilai" name="nilai" type="number" step="0.01" min="0" max="100" required><div class="hint" id="hNilai">Skala 0–100</div></div>
         </div>
       </section>
 
@@ -291,7 +299,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
           <label class="file"><span class="t">Pas foto 3×4 <i style="color:var(--err);font-style:normal">*</i></span><span class="n">Pilih berkas</span><input type="file" name="foto" accept=".jpg,.jpeg,.png" required></label>
           <label class="file"><span class="t">KTP / Kartu Keluarga <i style="color:var(--err);font-style:normal">*</i></span><span class="n">Pilih berkas</span><input type="file" name="ktp" accept=".jpg,.jpeg,.png,.pdf" required></label>
           <label class="file"><span class="t">Ijazah / Surat Keterangan Lulus <i style="color:var(--err);font-style:normal">*</i></span><span class="n">Pilih berkas</span><input type="file" name="ijazah" accept=".jpg,.jpeg,.png,.pdf" required></label>
-          <label class="file"><span class="t">Transkrip nilai / rapor <i style="color:var(--err);font-style:normal">*</i></span><span class="n">Pilih berkas</span><input type="file" name="rapor" accept=".jpg,.jpeg,.png,.pdf" required></label>
+          <label class="file"><span class="t" id="lRapor">Transkrip nilai / rapor <i style="color:var(--err);font-style:normal">*</i></span><span class="n">Pilih berkas</span><input type="file" name="rapor" accept=".jpg,.jpeg,.png,.pdf" required></label>
         </div>
       </section>
 
@@ -327,14 +335,14 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
 
     <div class="top">
       <div>
-        <div class="nobox"><span>No. Pendaftaran <small>(diisi oleh petugas)</small></span><b id="pNo"></b></div>
+        <div class="nobox"><span>No. Pendaftaran <small id="pNoLbl">(diisi oleh petugas)</small></span><b id="pNo"></b></div>
         <div class="pet">
           <b>Petunjuk pengisian</b>
           <ul>
-            <li>Isi dengan huruf cetak menggunakan pulpen hitam, sesuai KTP atau Kartu Keluarga.</li>
-            <li>Tandai pilihan dengan tanda silang (X) pada kotak.</li>
+            <li>Data diisi sesuai KTP atau Kartu Keluarga.</li>
+            <li>Tanda silang (X) pada kotak menunjukkan pilihan pendaftar.</li>
             <li>Kolom bertanda * wajib diisi.</li>
-            <li>Biaya pendaftaran mulai Rp 150.000. Bantuan: 0651-7551306 (Senin–Jumat, 08.00–16.00 WIB).</li>
+            <li>Biaya pendaftaran mulai Rp 150.000.</li>
           </ul>
         </div>
       </div>
@@ -356,7 +364,7 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     </div>
 
     <div class="sh"><b>B</b><h3>PILIHAN PROGRAM STUDI</h3></div>
-    <div class="sd">Pilihan kedua bersifat opsional dan dipakai bila pilihan pertama penuh. Program Profesi Ners hanya untuk lulusan S1 Keperawatan.</div>
+    <div class="sd">Pilihan kedua bersifat opsional dan dipakai bila pilihan pertama penuh.</div>
     <div class="g2">
       <div class="f1"><div class="fl">Jalur pendaftaran *</div><div class="fv free" id="pJalur"></div></div>
       <div class="f1"><div class="fl">Pilihan pertama *</div><div class="fv free ops3" id="pP1"></div></div>
@@ -373,10 +381,11 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
     <div class="sh" style="margin-top:4mm"><b>C</b><h3>PENDIDIKAN TERAKHIR</h3></div>
     <div class="sd">Data sekolah asal atau perguruan tinggi sebelumnya.</div>
     <div class="g2">
-      <div class="f1"><div class="fl">Nama sekolah / perguruan tinggi *</div><div class="fv" id="pSekolah"></div></div>
-      <div><div class="fl">Jurusan / program studi *</div><div class="fv" id="pJurusan"></div></div>
+      <div class="f1"><div class="fl">Pendidikan terakhir *</div><div class="fv free" id="pJenjang"></div></div>
+      <div class="f1"><div class="fl" id="pLSekolah">Nama sekolah *</div><div class="fv" id="pSekolah"></div></div>
+      <div><div class="fl" id="pLJurusan">Jurusan *</div><div class="fv" id="pJurusan"></div></div>
       <div><div class="fl">Tahun lulus *</div><div class="fv free" id="pLulus"></div></div>
-      <div><div class="fl">Rata-rata nilai rapor / IPK *</div><div class="fv" id="pNilai"></div></div>
+      <div><div class="fl" id="pLNilai">Rata-rata nilai rapor *</div><div class="fv" id="pNilai"></div></div>
       <div><div class="fl">Skala nilai</div><div class="fv free" id="pSkala"></div></div>
     </div>
 
@@ -396,14 +405,14 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
       <div><div class="fl">Pas foto 3 × 4 cm *</div><div class="fv free" id="pDocFoto"></div></div>
       <div><div class="fl">KTP / Kartu Keluarga *</div><div class="fv free" id="pDocKtp"></div></div>
       <div><div class="fl">Ijazah / Surat Keterangan Lulus *</div><div class="fv free" id="pDocIjazah"></div></div>
-      <div><div class="fl">Transkrip nilai / rapor *</div><div class="fv free" id="pDocRapor"></div></div>
+      <div><div class="fl" id="pLRapor">Transkrip nilai / rapor *</div><div class="fv free" id="pDocRapor"></div></div>
     </div>
 
     <div class="sh"><b>F</b><h3>PERNYATAAN</h3></div>
     <div class="stmt">Saya menyatakan bahwa data yang saya isi pada formulir ini adalah benar dan saya bersedia mengikuti seluruh ketentuan penerimaan mahasiswa baru STIKES Medika Seramoe Barat.</div>
     <div class="ttd">
-      <div>Orang tua / wali,<div class="sp"></div><div class="nm" id="pTtdAyah"></div><small>(nama lengkap &amp; tanda tangan)</small></div>
-      <div>Meulaboh, <span id="pTglCetak"></span><br>Pendaftar,<div class="sp" style="height:20mm"></div><div class="nm" id="pTtdNama"></div><small>(nama lengkap &amp; tanda tangan)</small></div>
+      <div><div style="height:5mm"></div>Orang tua / wali,<div class="sp"></div><div class="nm" id="pTtdAyah"></div><small>(nama lengkap &amp; tanda tangan)</small></div>
+      <div><div style="height:5mm">Meulaboh, <span style="display:inline-block;width:38mm;border-bottom:1px solid #000;height:4mm;vertical-align:bottom"></span></div>Pendaftar,<div class="sp"></div><div class="nm" id="pTtdNama"></div><small>(nama lengkap &amp; tanda tangan)</small></div>
     </div>
 
     <div class="ptg">
@@ -416,14 +425,25 @@ footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
   </section>
 </div>
 
+<script src="/gs.js"></script>
 <script>
-// Tempel URL Web App Google Apps Script di sini (lihat panduan)
-const SCRIPT_URL='https://script.google.com/macros/s/AKfycbxyY4hVXgbQWoIgxkW4_RH4Mh-TsmfMSYkjhdtgol3CNy6DLCa3P0cl9Tqf7Ey9VXTS/exec';
+// URL Web App Google Apps Script diatur di /gs.js
 const prodi=[["S1 Keperawatan"],["D3 Kebidanan"],["Profesi Ners"]];
 ["p1","p2"].forEach((id,i)=>{
   const s=document.getElementById(id);
   s.innerHTML='<option value="">'+(i?'Tidak ada':'Pilih program studi')+'</option>'+prodi.map(p=>'<option>'+p[0]+'</option>').join('');
 });
+
+function syncProdi(){
+  const v1=document.getElementById('p1').value,s2=document.getElementById('p2');
+  [...s2.options].forEach(o=>{o.disabled=!!v1&&o.value===v1&&o.value!==''});
+  if(s2.value===v1)s2.value='';
+}
+document.getElementById('p1').addEventListener('change',syncProdi);
+
+// 11. Batas tanggal lahir
+(function(){const t=document.getElementById('tgl'),n=new Date();
+  t.max=n.toISOString().slice(0,10);t.min='1950-01-01';})();
 
 // Validasi berkas: foto dikompres otomatis, PDF maks 2 MB
 const nt=document.getElementById('navToggle'),nl=document.getElementById('navLinks');
@@ -463,11 +483,14 @@ form.addEventListener('submit',async e=>{
     if(bad&&bad.type==='checkbox')msg='Centang pernyataan persetujuan sebelum mengirim.';
     else if(bad&&bad.type==='file')msg='Unggah semua dokumen yang diwajibkan.';
     else if(bad&&bad.id==='nik')msg='NIK harus 16 digit angka.';
+    else if(bad&&bad.id==='tgl')msg='Tanggal lahir tidak valid.';
+    else if(bad&&bad.name==='jalur')msg='Pilih jalur pendaftaran.';
     else if(bad&&(bad.id==='hp'||bad.id==='hpWali'))msg='Nomor HP harus diawali 08 atau +62.';
     err.textContent=msg;err.style.display='block';
     if(bad){bad.closest('.card').scrollIntoView({behavior:'smooth'});bad.focus({preventScroll:true})}
     return;
   }
+  if(typeof SCRIPT_URL==='undefined'||!SCRIPT_URL){err.textContent='Alamat server pendaftaran belum diatur (berkas /gs.js tidak ditemukan). Hubungi admin.';err.style.display='block';return}
   const btn=form.querySelector('button[type=submit]');
   btn.disabled=true;btn.textContent='Mengirim, jangan tutup halaman...';
   try{
@@ -551,7 +574,7 @@ let _fotoURL=null;
 
 function _fillBase(nomor){
   const g=n=>(form.elements[n]&&form.elements[n].value)||'';
-  _set('pNo',nomor||'');
+  _set('pNo',nomor||'');_set('pNoLbl',nomor?'':'(diisi oleh petugas)');
   _set('pNama',_U(g('nama')));_set('pNama2',_U(g('nama')));
   _$('pNik').innerHTML=_cells(g('nik'),16);
   _$('pJk').innerHTML=_opts(['Laki-laki','Perempuan'],g('jk'));
@@ -563,19 +586,21 @@ function _fillBase(nomor){
   _$('pJalur').innerHTML=_opts([['RPL','Program RPL'],['Pindahan','Pindahan']],g('jalur'));
   _$('pP1').innerHTML=_opts(prodi.map(p=>p[0]),g('p1'));
   _$('pP2').innerHTML=_opts(prodi.map(p=>p[0]),g('p2'));
+  const pt=g('jenjang')==='Perguruan Tinggi';
+  _$('pJenjang').innerHTML=_opts([['Sekolah','SMA / SMK / MA sederajat'],['Perguruan Tinggi','Perguruan tinggi']],g('jenjang'));
+  _set('pLRapor',pt?'Transkrip nilai *':'Transkrip nilai / rapor *');
+  _set('pLSekolah',pt?'Nama perguruan tinggi *':'Nama sekolah *');_set('pLJurusan',pt?'Program studi *':'Jurusan *');_set('pLNilai',pt?'IPK *':'Rata-rata nilai rapor *');
   _set('pSekolah',_U(g('sekolah')));_set('pJurusan',_U(g('jurusan')));
   _$('pLulus').innerHTML=_cells(g('lulus'),4);
   const nv=parseFloat(g('nilai'));
   _set('pNilai',isNaN(nv)?'':nv.toLocaleString('id-ID',{minimumFractionDigits:2,maximumFractionDigits:2}));
-  _$('pSkala').innerHTML=_opts([['rapor','0–100 (rapor)'],['ipk','0–4 (IPK)']],isNaN(nv)?'':(nv<=4?'ipk':'rapor'));
+  _$('pSkala').innerHTML=_opts([['rapor','0–100 (rapor)'],['ipk','0–4 (IPK)']],isNaN(nv)?'':(pt?'ipk':'rapor'));
   _set('pAyah',_U(g('ayah')));_set('pKerjaAyah',_U(g('kerjaAyah')));
   _set('pIbu',_U(g('ibu')));_set('pKerjaIbu',_U(g('kerjaIbu')));
   _set('pHpWali',g('hpWali'));
   [['pDocFoto','foto'],['pDocKtp','ktp'],['pDocIjazah','ijazah'],['pDocRapor','rapor']].forEach(([id,n])=>{
     _$(id).innerHTML=_opts([['y','Terlampir']],form.elements[n].files.length?'y':'');
   });
-  _set('pTtdAyah',_U(g('ayah')));_set('pTtdNama',_U(g('nama')));
-  _set('pTglCetak',new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}));
 
   // Pas foto: tampilkan foto yang dipilih di kotak 3 x 4
   const box=_$('pFoto'),f=form.elements.foto.files[0];
@@ -638,11 +663,11 @@ async function buildLampiran(){
     }
     srcs.forEach((s,k)=>items.push({
       label:'Lampiran '+no+': '+label+(srcs.length>1?' (hal. '+(k+1)+' dari '+srcs.length+')':''),
-      src:s,name:f.name
+      src:s,name:f.name,land:n==='ktp'
     }));
   }
   items.forEach(it=>{
-    const pg=document.createElement('section');pg.className='pg lamp';
+    const pg=document.createElement('section');pg.className='pg lamp'+(it.land?' land':'');
     pg.innerHTML='<div class="rh"><span>Formulir Pendaftaran Mahasiswa Baru (lampiran)</span><span>Nama pendaftar: <b>'+_E(nama)+'</b></span></div>'
       +'<div class="lamp-t">'+_E(it.label)+'</div>'
       +'<div class="lamp-box">'+(it.src?'<img src="'+it.src+'" alt="">':'<span>Berkas '+_E(it.name)+' tidak dapat ditampilkan. Serahkan salinannya kepada petugas.</span>')+'</div>'
@@ -656,6 +681,43 @@ async function buildLampiran(){
 
 _$('btnPrint').addEventListener('click',()=>printSheet(window._no));
 
+
+// Label pendidikan terakhir menyesuaikan pilihan sekolah / perguruan tinggi
+function applyJenjang(){
+  const pt=form.elements.jenjang.value==='Perguruan Tinggi';
+  _$('lSekolah').innerHTML=(pt?'Nama perguruan tinggi':'Nama sekolah')+' <i>*</i>';
+  _$('lJurusan').innerHTML=(pt?'Program studi':'Jurusan')+' <i>*</i>';
+  _$('lNilai').innerHTML=(pt?'IPK':'Rata-rata nilai rapor')+' <i>*</i>';
+  _$('hNilai').textContent=pt?'Skala 0–4':'Skala 0–100';
+  form.elements.nilai.max=pt?'4':'100';
+  _$('lRapor').innerHTML=(pt?'Transkrip nilai':'Transkrip nilai / rapor')+' <i style="color:var(--err);font-style:normal">*</i>';
+}
+document.querySelectorAll('input[name=jenjang]').forEach(r=>r.addEventListener('change',applyJenjang));
+applyJenjang();
+
+// ===== Data contoh dari PDF: hanya terisi bila alamat halaman diakhiri ?demo =====
+const DEMO=/[?&]demo\b/.test(location.search);
+if(DEMO){
+  const d={nama:'Aisyah Rahmawati',nik:'1105016506080002',jk:'Perempuan',tmp:'Meulaboh',tgl:'2008-06-25',agama:'Islam',hp:'082120999960',email:'aisyah.rahmawati@example.com',alamat:'Jl. Teuku Umar No. 12, Gampong Ujong Tanoh Darat, Kec. Johan Pahlawan, Kab. Aceh Barat',p1:'S1 Keperawatan',sekolah:'SMA Negeri 1 Meulaboh',jurusan:'IPA (MIPA)',lulus:'2026',nilai:'86.40',ayah:'Muhammad Yusuf',kerjaAyah:'Wiraswasta',ibu:'Nurhayati',kerjaIbu:'Ibu rumah tangga',hpWali:'081265432100'};
+  Object.keys(d).forEach(k=>{form.elements[k].value=d[k]});
+  document.getElementById('setuju').checked=true;
+  form.elements.jalur.value='RPL';
+  syncProdi();
+  [['foto','PAS FOTO 3x4',300,400],['ktp','CONTOH KTP / KK',1000,630],['ijazah','CONTOH IJAZAH',800,1100],['rapor','CONTOH TRANSKRIP / RAPOR',900,1200]].forEach(([n,t,w,h])=>{
+    const c=document.createElement('canvas');c.width=w;c.height=h;
+    const x=c.getContext('2d');
+    x.fillStyle='#f4f1ea';x.fillRect(0,0,w,h);
+    x.strokeStyle='#0A1E33';x.lineWidth=6;x.strokeRect(20,20,w-40,h-40);
+    x.fillStyle='#0A1E33';x.font='600 '+Math.round(w/16)+'px sans-serif';x.textAlign='center';x.textBaseline='middle';
+    x.fillText(t,w/2,h/2);
+    c.toBlob(b=>{
+      const dt=new DataTransfer();
+      dt.items.add(new File([b],'contoh-'+n+'.jpg',{type:'image/jpeg'}));
+      const inp=form.elements[n];inp.files=dt.files;
+      inp.dispatchEvent(new Event('change',{bubbles:true}));
+    },'image/jpeg',0.85);
+  });
+}
 </script>
 </body>
 </html>
